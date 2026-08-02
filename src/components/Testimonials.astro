@@ -1,0 +1,27 @@
+---
+const quotes = [
+  { q: 'KoamiStarterKit cut our setup from days to minutes. <b>The testing and CI/CD defaults are the best I have seen</b> in a Laravel starter.', name: 'Sofia Reyes', role: 'Lead Engineer · Fintech', init: 'S', color: 'var(--coral)' },
+  { q: 'We shipped our scholarship portal on KoaScholarships. <b>Clean code, real documentation</b>, and a community that actually answers issues.', name: 'Daniel Okafor', role: 'CTO · Edu Nonprofit', init: 'D', color: 'var(--teal)' },
+  { q: 'Contributing felt welcoming from the first PR. <b>The collective reviews with care</b> — it raised the bar for our whole team.', name: 'Hana Sato', role: 'OSS Contributor', init: 'H', color: 'var(--berry)' },
+];
+---
+<section class="section" id="testimonials">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="kicker">Stories</span>
+      <h2 class="section-title">Loved by the <em>people who build</em></h2>
+    </div>
+    <div class="t-grid">
+      {quotes.map((t) => (
+        <figure class="t-card" data-reveal>
+          <div class="stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote set:html={t.q}></blockquote>
+          <figcaption class="t-who">
+            <span class="lb-ava" style={`background:${t.color}`}>{t.init}</span>
+            <span><b>{t.name}</b><span>{t.role}</span></span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

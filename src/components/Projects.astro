@@ -1,0 +1,62 @@
+---
+const repos = [
+  {
+    name: 'KoamiStarterKit',
+    img: '/repos/KoamiStarterKit.png',
+    url: 'https://github.com/koamishin/KoamiStarterKit',
+    desc: 'An opinionated Laravel 12 starter kit with Vue 3, Inertia.js, Tailwind CSS, Fortify authentication and Wayfinder routing — Octane, Pest and CI/CD out of the box.',
+    lang: 'Vue', stars: 5, featured: true,
+  },
+  {
+    name: 'KoaScholarships',
+    img: '/repos/KoaScholarships.png',
+    url: 'https://github.com/koamishin/KoaScholarships',
+    desc: 'Scholarship management for students and admins — application portal, review dashboard, fund & budget management, and automated email notifications.',
+    lang: 'TypeScript', stars: 0, featured: false,
+  },
+  {
+    name: 'konbi',
+    img: '/repos/konbi.png',
+    url: 'https://github.com/koamishin/konbi',
+    desc: 'A modern, comprehensive Convenience Store Management System built for scalability and multi-store operations — POS, inventory and reporting.',
+    lang: 'Vue', stars: 0, featured: false,
+  },
+  {
+    name: 'coamifee-shop',
+    img: '/repos/coamifee-shop.png',
+    url: 'https://github.com/koamishin/coamifee-shop',
+    desc: 'A shop & point-of-sale system for small merchants who want a dependable cash register without the enterprise overhead.',
+    lang: 'PHP', stars: 0, featured: false,
+  },
+];
+---
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="kicker">The Shelf</span>
+      <h2 class="section-title">Featured <em>repositories</em></h2>
+      <p class="lede">Top open-source projects from the Koamishin collective on GitHub — each one documented, tested, and free to fork. Social previews pulled live from each repository.</p>
+    </div>
+    <div class="repo-grid">
+      {repos.map((r) => (
+        <a class="repo-card" href={r.url} target="_blank" rel="noopener" data-reveal>
+          {r.featured && <span class="repo-badge">★ Featured</span>}
+          <div class="repo-cover">
+            <img src={r.img} alt={`${r.name} repository social preview`} loading="lazy" width="1200" height="630" />
+          </div>
+          <div class="repo-body">
+            <div class="repo-top">
+              <h3>{r.name}</h3>
+              <span class="repo-stars">★ {r.stars}</span>
+            </div>
+            <p>{r.desc}</p>
+            <div class="repo-meta">
+              <span class="badge">{r.lang}</span>
+              <span class="repo-link">View on GitHub <span class="arr">→</span></span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+const B = ['var(--brand-2)','var(--brand-5)','var(--brand-6)','var(--brand-9)','var(--brand-4)','var(--brand-8)','var(--brand-2)','var(--brand-6)'];
+const row1 = [
+  ['Laravel',B[0]], ['Vue.js',B[1]], ['React',B[2]], ['Inertia',B[3]],
+  ['Tailwind CSS',B[4]], ['Vite',B[5]], ['TypeScript',B[6]], ['Filament',B[7]],
+];
+const row2 = [
+  ['Livewire',B[1]], ['MySQL',B[2]], ['Pest',B[3]], ['Octane',B[4]],
+  ['Fortify',B[5]], ['Wayfinder',B[6]], ['Blade',B[7]], ['Inertia SSR',B[0]],
+];
+---
+<section class="marquee-band" aria-label="Built with">
+  <div class="center"><span class="micro">Built on a modern, open stack</span></div>
+  <div class="marquee slow" data-marquee>
+    <div class="track">
+      {row1.concat(row1).map(([name, color]) => (
+        <span class="logo-item"><span class="lg" style={`background:${color}`}>{name.charAt(0)}</span>{name}</span>
+      ))}
+    </div>
+  </div>
+  <div class="marquee rev" data-marquee>
+    <div class="track">
+      {row2.concat(row2).map(([name, color]) => (
+        <span class="logo-item"><span class="lg" style={`background:${color}`}>{name.charAt(0)}</span>{name}</span>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
+import Projects from '../components/Projects.astro';
+import Leaderboard from '../components/Leaderboard.astro';
+import Team from '../components/Team.astro';
+import Testimonials from '../components/Testimonials.astro';
+import JoinCTA from '../components/JoinCTA.astro';
+---
+
+<BaseLayout>
+  <Hero />
+  <LogoMarquee />
+  <Projects />
+  <Leaderboard />
+  <Team />
+  <Testimonials />
+  <JoinCTA />
+</BaseLayout>
+
+<script>
+  import '../scripts/animations.js';
+</script>

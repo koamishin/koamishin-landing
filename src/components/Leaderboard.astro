@@ -1,0 +1,33 @@
+---
+const leaders = [
+  { rank: 1, img: '/team/yukazakiri.png', name: 'yukazakiri', handle: 'Lead Engineer · Founder', commits: 400, scope: '7 repositories' },
+  { rank: 2, img: '/team/SorenOutis.png', name: 'SorenOutis', handle: 'Full Stack Developer', commits: 126, scope: '4 repositories' },
+  { rank: 3, img: '/team/Jaymark.png', name: 'jAymarkbacurin', handle: 'Jaymark · UI/UX Designer', commits: 2, scope: 'koamishin repositories' },
+  { rank: 4, img: '/team/Rui-Zen.png', name: 'Rui-Zen', handle: 'Louis · Full Stack Engineer', commits: 1, scope: 'koamishin repositories' },
+  { rank: 5, img: '/team/Angelika.png', name: 'elyashzyl', handle: 'Angelika · Developer', commits: 0, scope: 'koamishin repositories' },
+];
+---
+<section class="section" id="contributors">
+  <div class="wrap">
+    <div class="leaderboard" data-reveal>
+      <span class="kicker">Community</span>
+      <h2 class="section-title">Top <em>contributors</em> on GitHub</h2>
+      <ol class="lb-list">
+        {leaders.map((c) => (
+          <li class={`lb-row r${c.rank}`} data-reveal>
+            <span class="lb-rank">{c.rank}</span>
+            <span class="lb-person">
+              <img class="lb-ava" src={c.img} alt={`${c.name} GitHub avatar`} loading="lazy" width="46" height="46" />
+              <span><b>{c.name}</b><span>{c.handle} · {c.scope}</span></span>
+            </span>
+            <span class="lb-contrib"><b>{c.commits}</b><span>commits</span></span>
+          </li>
+        ))}
+      </ol>
+      <div class="lb-foot">
+        <p>Live from the GitHub contributors API — aggregated across the koamishin repositories.</p>
+        <a class="btn btn-dark" href="https://github.com/koamishin" target="_blank" rel="noopener">Become a contributor →</a>
+      </div>
+    </div>
+  </div>
+</section>
