@@ -353,18 +353,42 @@ img.lb-ava { display: block; object-fit: cover; }
   height: 100%;
 }
 .team-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
-.team-photo { margin-bottom: 1.1rem; }
-.team-photo img { width: 108px; height: 108px; border-radius: 50%; object-fit: cover; border: 4px solid var(--cream-2); box-shadow: var(--shadow-md); }
+.team-photo { margin-bottom: 1.1rem; display: inline-block; cursor: pointer; text-decoration: none; }
+.team-photo img { width: 108px; height: 108px; border-radius: 50%; object-fit: cover; border: 4px solid var(--cream-2); box-shadow: var(--shadow-md); transition: transform 0.22s ease; }
+a.team-photo:hover img { transform: scale(1.05); }
 .team-info { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
 .team-card h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; color: var(--ink); line-height: 1.2; word-break: break-word; }
-.team-handle { display: block; margin-top: 0.25rem; font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--coral-dk); }
+.team-handle { display: block; margin-top: 0.25rem; font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--coral-dk); text-decoration: none; transition: color 0.18s ease; }
+.team-handle:hover { text-decoration: underline; color: var(--ink); }
 .team-roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; margin-top: 0.65rem; width: 100%; }
 .team-roles .badge { margin-top: 0 !important; }
 .team-stack { display: block; margin-top: 0.55rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; color: var(--muted); line-height: 1.4; word-break: break-word; }
 .team-card p { margin-top: 0.8rem; font-size: 0.92rem; color: var(--muted); line-height: 1.55; flex: 1; }
-.team-meta { margin-top: 1.1rem; display: flex; align-items: center; gap: 0.8rem; justify-content: center; width: 100%; }
-.team-commits { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-soft); }
-.team-commits b { color: var(--gold); font-weight: 700; }
+.team-meta { margin-top: 1.1rem; display: flex; align-items: center; gap: 0.6rem; justify-content: center; width: 100%; flex-wrap: wrap; }
+.team-portfolio-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--card); background: var(--night);
+  padding: 0.38rem 0.85rem; border-radius: var(--radius-pill);
+  text-decoration: none; transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(48,67,51,0.18);
+}
+.team-portfolio-link:hover {
+  background: var(--gold); color: var(--night);
+  transform: translateY(-2px); box-shadow: 0 4px 12px rgba(201,162,39,0.3);
+}
+.team-meta .repo-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink-soft); background: transparent;
+  border: 1px solid var(--line-strong);
+  padding: 0.36rem 0.8rem; border-radius: var(--radius-pill);
+  text-decoration: none; transition: all 0.2s ease;
+}
+.team-meta .repo-link:hover {
+  background: var(--cream); color: var(--ink);
+  border-color: var(--ink); transform: translateY(-2px);
+}
 
 
 /* ---------- CTA banner (join the collective) ---------- */
@@ -453,6 +477,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
   .team-roles .badge { font-size: 0.58rem; padding: 0.28rem 0.65rem; }
   .team-stack { font-size: 0.64rem; margin-top: 0.45rem; }
   .team-card p { font-size: 0.88rem; line-height: 1.5; margin-top: 0.7rem; }
-  .team-meta { margin-top: 0.9rem; }
+  .team-meta { margin-top: 0.9rem; gap: 0.5rem; }
+  .team-portfolio-link { font-size: 0.68rem; padding: 0.32rem 0.75rem; }
+  .team-meta .repo-link { font-size: 0.68rem; padding: 0.32rem 0.7rem; }
 }
 
