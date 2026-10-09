@@ -48,7 +48,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background: var(--cream);
   color: var(--ink);
@@ -137,8 +137,9 @@ a { color: inherit; text-decoration: none; }
 }
 .nav-links > li > a:hover, .nav-links > li > button:hover { background: var(--cream-2); color: var(--ink); }
 .nav-links .caret { font-size: 0.7rem; color: var(--coral); transition: transform 0.2s; }
-.nav-links li.open .caret { transform: rotate(180deg); }
 .nav-cta { display: flex; align-items: center; gap: 0.6rem; }
+.btn-text-short { display: none; }
+.btn-text-full { display: inline; }
 
 /* mega menu panel */
 .mega {
@@ -731,41 +732,175 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
   .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
   .footer-top { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 860px) {
   .nav-links { display: none; }
-  .hero-title { font-size: clamp(2.5rem, 9vw, 3.8rem); }
+  .nav { height: 66px; }
+  .nav-cta .btn {
+    padding: 0.52rem 1.05rem;
+    font-size: 0.85rem;
+  }
+  .hero-title { font-size: clamp(2.3rem, 8vw, 3.4rem); }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .g-item { grid-column: span 1 !important; grid-row: span 1 !important; min-height: 180px; }
   .g-1 { grid-column: span 2 !important; min-height: 240px; }
 }
+
 @media (max-width: 640px) {
-  .dir-name { font-size: 1.15rem; }
-  .dir-desc { font-size: 0.88rem; }
-  .dir-actions {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+  :root {
+    --gutter: 1.1rem;
   }
-  .dir-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
+
+  /* Header mobile */
+  .nav {
+    height: 60px;
+  }
+  .brand {
+    font-size: 1.2rem;
+    gap: 0.45rem;
+  }
+  .brand-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+  .brand small {
+    display: none;
+  }
+  .nav-cta {
+    gap: 0.4rem;
+  }
+  .nav-cta .btn-ghost {
+    display: none;
+  }
+  .nav-cta .btn-primary {
+    padding: 0.44rem 0.95rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px -4px rgba(60, 77, 61, 0.35);
+  }
+  .btn-text-full { display: none; }
+  .btn-text-short { display: inline; }
+
+  /* Hero mobile */
+  .hero {
+    padding: 2.8rem 0 2rem;
+  }
+  .hero-title {
+    font-size: clamp(1.95rem, 8vw, 2.5rem);
+    line-height: 1.1;
+  }
+  .hero-deck {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin-top: 1rem;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+    margin: 1.6rem auto 0;
+    gap: 0.65rem;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    padding: 0.8rem 1.4rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .hero-proof {
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: center;
+    margin-top: 1.4rem;
+  }
+  .hero-proof p {
+    font-size: 0.78rem;
+  }
+
+  /* Section scaffold */
+  .section {
+    padding: 3rem 0;
+  }
+  .section-head {
+    margin-bottom: 2rem;
+  }
+  .section-title {
+    font-size: clamp(1.75rem, 6.5vw, 2.2rem);
+  }
+  .lede {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Directory / Repositories */
+  .dir-row {
+    padding: 1.2rem 1.1rem;
+  }
+  .dir-name {
+    font-size: 1.15rem;
+    word-break: break-word;
+  }
+  .dir-desc {
+    font-size: 0.88rem;
+  }
+  .dir-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+  .dir-stats {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
   }
+  .dir-buttons {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+  }
   .dir-btn {
+    flex: 1;
     justify-content: center;
-    padding: 0.45rem;
+    padding: 0.48rem 0.75rem;
+    font-size: 0.74rem;
+    text-align: center;
   }
   .directory-filter-bar {
     gap: 0.4rem;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.4rem;
+    scrollbar-width: none;
+  }
+  .directory-filter-bar::-webkit-scrollbar {
+    display: none;
   }
   .dir-tab {
-    font-size: 0.7rem;
-    padding: 0.35rem 0.75rem;
+    font-size: 0.72rem;
+    padding: 0.36rem 0.75rem;
+    flex-shrink: 0;
   }
+  .directory-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 1rem;
+  }
+  .directory-footer .btn {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.88rem;
+  }
+
+  /* Team */
   .team-grid {
     grid-template-columns: 1fr;
-    max-width: 440px;
+    max-width: 420px;
     margin-left: auto;
     margin-right: auto;
     gap: 1.2rem;
@@ -785,5 +920,67 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
   .team-meta { margin-top: 0.9rem; gap: 0.5rem; }
   .team-portfolio-link { font-size: 0.68rem; padding: 0.32rem 0.75rem; }
   .team-meta .repo-link { font-size: 0.68rem; padding: 0.32rem 0.7rem; }
+
+  /* Testimonials */
+  .t-card {
+    padding: 1.35rem 1.2rem;
+  }
+
+  /* CTA banner */
+  .cta-band {
+    padding: 2.2rem 1.25rem;
+    border-radius: var(--radius);
+  }
+  .cta-band::before { font-size: 2.5rem; left: 0.8rem; top: -0.5rem; }
+  .cta-band::after { font-size: 3.5rem; right: 0.8rem; bottom: -1rem; }
+  .cta-band h2 { font-size: clamp(1.75rem, 6.5vw, 2.2rem); }
+  .cta-band p { font-size: 0.92rem; margin-top: 0.75rem; }
+  .cta-band .hero-ctas {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 3.5rem;
+  }
+  .footer-top {
+    padding: 2.5rem 0 1.5rem;
+    gap: 2rem;
+  }
+  .footer-cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem 1rem;
+  }
+  .footer-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.2rem 0;
+  }
+  .lang-control {
+    justify-content: center;
+    width: 100%;
+  }
+  .social-row {
+    justify-content: center;
+    width: 100%;
+  }
+  .footer-base {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 1.2rem 0 2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-cols {
+    grid-template-columns: 1fr;
+  }
+  .hero-title {
+    font-size: clamp(1.8rem, 8vw, 2.1rem);
+  }
 }
 
