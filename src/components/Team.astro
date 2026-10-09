@@ -1,14 +1,16 @@
 ---
 const team = [
   {
-    name: 'yukazakiri',
-    handle: 'Yuka',
-    roles: ['Founder · Lead Engineer'],
-    bio: 'Primary author of the collective — starter kits, POS, scholarships, attendance and the site itself.',
-    stack: 'Laravel · Vue · Inertia',
-    img: '/team/yukazakiri.png',
-    github: 'https://github.com/yukazakiri',
-    portfolio: null,
+    name: 'Louis',
+    handle: '@Rui-Zen',
+    handleAlt: '@yukazakiri',
+    roles: ['Founder · Lead Engineer', 'Full Stack Engineer'],
+    bio: 'Founder and primary author of the collective — starter kits, POS, scholarships, system reliability, and ecosystem tools.',
+    stack: 'Laravel · Vue · PHP · TypeScript',
+    img: '/team/Rui-Zen.png',
+    github: 'https://github.com/Rui-Zen',
+    githubAlt: 'https://github.com/yukazakiri',
+    portfolio: 'https://louis.koamishin.com',
   },
   {
     name: 'Ortiz Bugtong Jr',
@@ -29,16 +31,6 @@ const team = [
     img: '/team/Jaymark.png',
     github: 'https://github.com/jAymarkbacurin',
     portfolio: null,
-  },
-  {
-    name: 'Louis',
-    handle: '@Rui-Zen',
-    roles: ['Full Stack Engineer'],
-    bio: 'Technical direction, deployment paths, and system reliability. Keeps systems clear, steady, and shippable.',
-    stack: 'PHP · TypeScript · Writing',
-    img: '/team/Rui-Zen.png',
-    github: 'https://github.com/Rui-Zen',
-    portfolio: 'https://louis.koamishin.com',
   },
   {
     name: 'Angelika',
@@ -67,7 +59,13 @@ const team = [
           </a>
           <div class="team-info">
             <h3>{m.name}</h3>
-            <a class="team-handle" href={m.github} target="_blank" rel="noopener">{m.handle}</a>
+            <div class="team-handles">
+              <a class="team-handle" href={m.github} target="_blank" rel="noopener">{m.handle}</a>
+              {m.handleAlt && (
+                <span class="team-handle-sep">·</span>
+                <a class="team-handle" href={m.githubAlt} target="_blank" rel="noopener" title="Secondary GitHub">{m.handleAlt}</a>
+              )}
+            </div>
             <div class="team-roles">
               {m.roles.map((r) => <span class="badge">{r}</span>)}
             </div>

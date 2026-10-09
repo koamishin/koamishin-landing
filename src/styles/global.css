@@ -358,8 +358,10 @@ img.lb-ava { display: block; object-fit: cover; }
 a.team-photo:hover img { transform: scale(1.05); }
 .team-info { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
 .team-card h3 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; color: var(--ink); line-height: 1.2; word-break: break-word; }
-.team-handle { display: block; margin-top: 0.25rem; font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--coral-dk); text-decoration: none; transition: color 0.18s ease; }
+.team-handles { display: flex; align-items: center; justify-content: center; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.25rem; }
+.team-handle { display: inline-block; font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--coral-dk); text-decoration: none; transition: color 0.18s ease; }
 .team-handle:hover { text-decoration: underline; color: var(--ink); }
+.team-handle-sep { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); }
 .team-roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; margin-top: 0.65rem; width: 100%; }
 .team-roles .badge { margin-top: 0 !important; }
 .team-stack { display: block; margin-top: 0.55rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; color: var(--muted); line-height: 1.4; word-break: break-word; }
