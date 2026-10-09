@@ -6,11 +6,16 @@ import SiteFooter from '../components/SiteFooter.astro';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 const {
   title = 'Koamishin — Open Source Laravel Collective',
   description = 'Koamishin is a developer collective crafting secure, high-performance Laravel applications and open-source packages — starter kits, POS, education systems and more, built in the open.',
+  image = '/og-image.png',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, 'https://koamishin.com');
+const imageURL = new URL(image, 'https://koamishin.com');
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -19,10 +24,53 @@ const {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="theme-color" content="#26211B" />
+  <meta name="theme-color" content="#3C4D3D" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content="Koamishin" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={imageURL} />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:alt" content="Koamishin Emblem Logo" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={canonicalURL} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageURL} />
+
+  <!-- Google Fonts Preconnect & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" rel="stylesheet" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Koamishin",
+      "alternateName": "Koamishin Collective",
+      "url": "https://koamishin.com",
+      "logo": "https://koamishin.com/koamishin-logo.png",
+      "sameAs": [
+        "https://github.com/koamishin",
+        "https://x.com"
+      ],
+      "description": "An open-source developer collective crafting refined Laravel starter kits, institutional platforms, and developer tooling."
+    }
+  </script>
+
   <script is:inline>
     document.documentElement.classList.add("js");
     window.__animOK = false;
