@@ -1,88 +1,109 @@
 ---
-const repos = [
+const projects = [
   {
     name: 'KoamiStarterKit',
-    tag: 'Flagship Starter Kit',
-    img: '/repos/KoamiStarterKit.png',
+    slug: 'koamistarterkit',
+    category: 'starter-kits',
+    categoryLabel: 'Starter Kit',
+    status: 'Production Ready',
+    version: 'v2.0',
     url: 'https://github.com/koamishin/KoamiStarterKit',
     docs: 'https://github.com/koamishin/KoamiStarterKit#readme',
-    desc: 'An opinionated modern Laravel 12 starter kit with Vue 3, Inertia.js, Tailwind CSS, Fortify authentication, and Wayfinder routing — Octane, Pest, and CI/CD out of the box.',
-    features: ['Laravel 12 + Vue 3 SPA', 'Fortify Auth & Profile', 'Pest Testing Suite', 'FrankenPHP / Octane'],
-    lang: 'Laravel · Vue 3 · Inertia',
+    desc: 'An opinionated modern Laravel 12 starter kit with Vue 3, Inertia.js, Tailwind CSS 4, Fortify authentication, Wayfinder routing, Octane, Pest tests, and automated CI/CD workflows.',
+    stack: ['Laravel 12', 'Vue 3', 'Inertia.js', 'Tailwind 4', 'Octane'],
+    license: 'MIT',
     stars: 6,
-    bentoClass: 'bento-hero',
+    icon: 'terminal',
   },
   {
     name: 'koakademy',
-    tag: 'Academic Management',
-    img: '/repos/koakademy.png',
+    slug: 'koakademy',
+    category: 'platforms',
+    categoryLabel: 'Academic Platform',
+    status: 'Active',
+    version: 'v1.0',
     url: 'https://github.com/koamishin/koakademy',
     docs: null,
     desc: 'Opinionated academic management platform for student lifecycles — enrollment, billing, scheduling & admin tools with configurable branding and PWA support.',
-    features: ['Student Lifecycle', 'Enrollment & Billing', 'PWA Support'],
-    lang: 'Laravel 12 · React · Inertia',
+    stack: ['Laravel 12', 'React', 'Inertia.js', 'Tailwind CSS', 'PWA'],
+    license: 'AGPL-3.0',
     stars: 6,
-    bentoClass: 'bento-side',
+    icon: 'academic',
   },
   {
     name: 'KoaScholarships',
-    tag: 'Education & Grants',
-    img: '/repos/KoaScholarships.png',
+    slug: 'koascholarships',
+    category: 'platforms',
+    categoryLabel: 'Grants & Awards',
+    status: 'Active',
+    version: 'v1.0',
     url: 'https://github.com/koamishin/KoaScholarships',
     docs: null,
-    desc: 'Streamlined scholarship application portal and admin review dashboard with automated budgeting, review stages, and disbursement workflows.',
-    features: ['Applicant Portal', 'Admin Review Tools', 'Disbursement Flow'],
-    lang: 'Laravel · Filament · Livewire',
+    desc: 'Comprehensive educational scholarship management portal for applicants and administrators, featuring automated fund budgeting, review stages, and document verification.',
+    stack: ['Laravel', 'Filament', 'Livewire', 'MySQL'],
+    license: 'MIT',
     stars: 1,
-    bentoClass: 'bento-third',
-  },
-  {
-    name: 'konexus',
-    tag: 'Enterprise SMIS',
-    img: '/repos/konexus.png',
-    url: 'https://github.com/koamishin/konexus',
-    docs: null,
-    desc: 'Enterprise-grade, modular School Management Information System (SMIS) built for high throughput and multi-department school operations.',
-    features: ['Multi-department SMIS', 'Modular Architecture', 'Granular Permissions'],
-    lang: 'Laravel 12 · PHP · Inertia',
-    stars: 1,
-    bentoClass: 'bento-third',
+    icon: 'award',
   },
   {
     name: 'konbi',
-    tag: 'Store & POS Management',
-    img: '/repos/konbi.png',
+    slug: 'konbi',
+    category: 'platforms',
+    categoryLabel: 'Retail & POS',
+    status: 'Active',
+    version: 'v1.0',
     url: 'https://github.com/koamishin/konbi',
     docs: null,
-    desc: 'Modern Convenience Store Management System built for scalability, multi-store retail operations, real-time inventory and cashier sales.',
-    features: ['Multi-store Operations', 'Real-time Inventory', 'Cashier POS'],
-    lang: 'Vue 3 · Laravel · MySQL',
+    desc: 'Modern Convenience Store Management System built for multi-store retail scalability, live stock tracking, centralized inventory control, and cashier checkout.',
+    stack: ['Vue 3', 'Laravel', 'MySQL', 'Tailwind'],
+    license: 'MIT',
     stars: 1,
-    bentoClass: 'bento-third',
+    icon: 'store',
+  },
+  {
+    name: 'konexus',
+    slug: 'konexus',
+    category: 'platforms',
+    categoryLabel: 'Enterprise SMIS',
+    status: 'Active',
+    version: 'v1.0',
+    url: 'https://github.com/koamishin/konexus',
+    docs: null,
+    desc: 'Enterprise-grade School Management Information System (SMIS) designed for multi-department governance, student rosters, academic reporting, and role permissions.',
+    stack: ['Laravel 12', 'PHP', 'Inertia.js', 'Tailwind'],
+    license: 'MIT',
+    stars: 1,
+    icon: 'building',
   },
   {
     name: 'Koattendance',
-    tag: 'Workforce & Timekeeping',
-    img: '/repos/Koattendance.png',
+    slug: 'koattendance',
+    category: 'tools',
+    categoryLabel: 'Workforce & Time',
+    status: 'Active',
+    version: 'v1.0',
     url: 'https://github.com/koamishin/Koattendance',
     docs: null,
-    desc: 'Biometric time-tracking and attendance management platform for institutions with automated reporting and audit logs.',
-    features: ['Biometric Logs', 'Shift Schedules', 'Automated Reports'],
-    lang: 'Vue · Laravel · Inertia',
+    desc: 'Workforce time-tracking and attendance management platform for institutions with shift schedule configuration, biometric punch-in hooks, and audit logs.',
+    stack: ['Vue 3', 'Laravel', 'Inertia.js', 'MySQL'],
+    license: 'MIT',
     stars: 1,
-    bentoClass: 'bento-half',
+    icon: 'clock',
   },
   {
     name: 'koment',
-    tag: 'Events & Esports SaaS',
-    img: '/repos/koment.png',
+    slug: 'koment',
+    category: 'tools',
+    categoryLabel: 'Esports & Events',
+    status: 'Active',
+    version: 'v1.0',
     url: 'https://github.com/koamishin/koment',
     docs: null,
-    desc: 'Next-gen Event Management and Esports Tournament SaaS Platform with bracket generation, team rosters, and real-time match dashboards.',
-    features: ['Tournament Brackets', 'Team Rosters', 'Live Scoreboards'],
-    lang: 'TypeScript · Laravel · SaaS',
+    desc: 'Event management and esports tournament platform with automated bracket trees, team rosters, real-time match dashboards, and tournament scheduling.',
+    stack: ['TypeScript', 'Laravel', 'Vue 3', 'SaaS'],
+    license: 'MIT',
     stars: 1,
-    bentoClass: 'bento-half',
+    icon: 'trophy',
   },
 ];
 ---
@@ -90,52 +111,154 @@ const repos = [
   <div class="wrap">
     <div class="section-head" data-reveal>
       <span class="kicker">The Shelf</span>
-      <h2 class="section-title">Featured <em>repositories</em></h2>
-      <p class="lede">Top open-source systems from the Koamishin collective on GitHub — production-ready, documented, tested, and free to fork.</p>
+      <h2 class="section-title">Open source <em>systems &amp; repositories</em></h2>
+      <p class="lede">A curated directory of frameworks, enterprise platforms, and tools built by the collective. Clean code, tested architecture, and open on GitHub.</p>
     </div>
 
-    <div class="bento-grid">
-      {repos.map((r) => (
-        <article class={`bento-card ${r.bentoClass}`} data-reveal>
-          <div class="bento-header">
-            <span class="bento-tag">{r.tag}</span>
-            <span class="bento-stars">★ {r.stars}</span>
-          </div>
+    <!-- Category Filters (Apple Developer style) -->
+    <div class="directory-filter-bar" data-reveal>
+      <button type="button" class="dir-tab active" data-filter="all">All Systems <span class="tab-count">7</span></button>
+      <button type="button" class="dir-tab" data-filter="starter-kits">Starter Kits <span class="tab-count">1</span></button>
+      <button type="button" class="dir-tab" data-filter="platforms">Platforms &amp; ERP <span class="tab-count">4</span></button>
+      <button type="button" class="dir-tab" data-filter="tools">Tools &amp; SaaS <span class="tab-count">2</span></button>
+    </div>
 
-          <div class="bento-content">
-            <div class="bento-text">
-              <h3 class="bento-title">
-                <a href={r.url} target="_blank" rel="noopener">{r.name}</a>
-              </h3>
-              <span class="bento-lang">{r.lang}</span>
-              <p class="bento-desc">{r.desc}</p>
-              
-              {r.features && (
-                <ul class="bento-features">
-                  {r.features.map((f) => (
-                    <li><span class="bullet">✦</span> {f}</li>
-                  ))}
-                </ul>
+    <!-- Directory Listing -->
+    <div class="directory-list" data-reveal>
+      {projects.map((p) => (
+        <article class="dir-row" data-category={p.category}>
+          <!-- Left: Icon & Core Identity -->
+          <div class="dir-main">
+            <div class="dir-icon-wrap" aria-hidden="true">
+              {p.icon === 'terminal' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="4 17 10 11 4 5"></polyline>
+                  <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
               )}
-
-              <div class="bento-actions">
-                <a href={r.url} class="btn-bento-gh" target="_blank" rel="noopener">
-                  View on GitHub <span class="arr">→</span>
-                </a>
-                {r.docs && (
-                  <a href={r.docs} class="btn-bento-docs" target="_blank" rel="noopener">
-                    Docs ↗
-                  </a>
-                )}
-              </div>
+              {p.icon === 'academic' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+              )}
+              {p.icon === 'award' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              )}
+              {p.icon === 'store' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l2-5h14l2 5"></path>
+                  <path d="M21 9v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9"></path>
+                  <line x1="10" y1="14" x2="14" y2="14"></line>
+                </svg>
+              )}
+              {p.icon === 'building' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                  <path d="M9 22v-4h6v4"></path>
+                  <line x1="8" y1="6" x2="8.01" y2="6"></line>
+                  <line x1="16" y1="6" x2="16.01" y2="6"></line>
+                  <line x1="8" y1="10" x2="8.01" y2="10"></line>
+                  <line x1="16" y1="10" x2="16.01" y2="10"></line>
+                  <line x1="8" y1="14" x2="8.01" y2="14"></line>
+                  <line x1="16" y1="14" x2="16.01" y2="14"></line>
+                </svg>
+              )}
+              {p.icon === 'clock' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              )}
+              {p.icon === 'trophy' && (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4a2 2 0 0 1-2-2V5h4"></path>
+                  <path d="M18 9h2a2 2 0 0 0 2-2V5h-4"></path>
+                  <path d="M4 5h16v6a6 6 0 0 1-12 0V5z"></path>
+                  <line x1="12" y1="15" x2="12" y2="19"></line>
+                  <line x1="8" y1="19" x2="16" y2="19"></line>
+                </svg>
+              )}
             </div>
 
-            <a class="bento-preview" href={r.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-              <img src={r.img} alt={`${r.name} repository preview`} loading="lazy" width="1200" height="630" />
-            </a>
+            <div class="dir-info">
+              <div class="dir-title-row">
+                <a class="dir-name" href={p.url} target="_blank" rel="noopener">
+                  {p.name}
+                </a>
+                <span class="dir-badge dir-category-badge">{p.categoryLabel}</span>
+                <span class={`dir-badge dir-status-badge ${p.status === 'Production Ready' ? 'ready' : ''}`}>
+                  <span class="status-dot"></span>
+                  {p.status}
+                </span>
+              </div>
+              <p class="dir-desc">{p.desc}</p>
+
+              <div class="dir-tech-row">
+                {p.stack.map((s) => (
+                  <span class="dir-pill">{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Meta & Actions -->
+          <div class="dir-actions">
+            <div class="dir-stats">
+              <span class="dir-stars" title={`${p.stars} stars on GitHub`}>★ {p.stars}</span>
+              <span class="dir-license">{p.license}</span>
+            </div>
+            
+            <div class="dir-buttons">
+              {p.docs && (
+                <a class="dir-btn dir-btn-docs" href={p.docs} target="_blank" rel="noopener">
+                  Docs ↗
+                </a>
+              )}
+              <a class="dir-btn dir-btn-gh" href={p.url} target="_blank" rel="noopener">
+                GitHub <span class="arr">→</span>
+              </a>
+            </div>
           </div>
         </article>
       ))}
     </div>
+
+    <!-- Directory Footer Quote / Explore Link -->
+    <div class="directory-footer" data-reveal>
+      <p>All repositories are hosted under the official <b><a href="https://github.com/koamishin" target="_blank" rel="noopener">@koamishin</a></b> organization.</p>
+      <a class="btn btn-ghost" href="https://github.com/koamishin" target="_blank" rel="noopener">
+        View all repositories on GitHub →
+      </a>
+    </div>
   </div>
 </section>
+
+<script>
+  // Apple-style directory category filter
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('.dir-tab');
+  const rows = document.querySelectorAll<HTMLElement>('.dir-row');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      
+      filterButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      rows.forEach((row) => {
+        const cat = row.dataset.category;
+        if (filter === 'all' || cat === filter) {
+          row.style.display = 'flex';
+          row.style.opacity = '1';
+        } else {
+          row.style.display = 'none';
+          row.style.opacity = '0';
+        }
+      });
+    });
+  });
+</script>
