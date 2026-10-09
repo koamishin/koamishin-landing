@@ -1,31 +1,31 @@
 ---
 const team = [
   {
-    name: 'yukazakiri', handle: 'Yuka', role: 'Founder · Lead Engineer',
+    name: 'yukazakiri', handle: 'Yuka', roles: ['Founder · Lead Engineer'],
     bio: 'Primary author of the collective — 400 contributions across 7 repositories: starter kits, POS, scholarships, attendance and the site itself.',
     stack: 'Laravel · Vue · Inertia',
     img: '/team/yukazakiri.png', commits: 400, url: 'https://github.com/yukazakiri',
   },
   {
-    name: 'SorenOutis', handle: '@SorenOutis', role: 'Full Stack Developer',
+    name: 'Ortiz Bugtong Jr', handle: '@SorenOutis', roles: ['Full Stack Developer', 'AI Engineer'],
     bio: 'Full-stack builds, infrastructure flow, and visual systems. Shapes full-stack work with a visual eye.',
     stack: 'Laravel · Vue · System Arch',
     img: '/team/SorenOutis.png', commits: 126, url: 'https://github.com/SorenOutis',
   },
   {
-    name: 'Jaymark', handle: '@jayreid017', role: 'UI/UX Designer',
+    name: 'Jaymark', handle: '@jayreid017', roles: ['UI/UX Designer'],
     bio: 'Interface systems, usability passes, and quality review. Designs with care and tests with patience.',
     stack: 'Figma · React · Testing',
     img: '/team/Jaymark.png', commits: 2, url: 'https://github.com/jAymarkbacurin',
   },
   {
-    name: 'Louis', handle: '@Rui-Zen', role: 'Full Stack Engineer',
+    name: 'Louis', handle: '@Rui-Zen', roles: ['Full Stack Engineer'],
     bio: 'Technical direction, deployment paths, and system reliability. Keeps systems clear, steady, and shippable.',
     stack: 'PHP · TypeScript · Writing',
     img: '/team/Rui-Zen.png', commits: 1, url: 'https://github.com/Rui-Zen',
   },
   {
-    name: 'Angelika', handle: '@elyashzyl', role: 'Developer',
+    name: 'Angelika', handle: '@elyashzyl', roles: ['Developer'],
     bio: 'React interfaces, Laravel features, and ecosystem support. Builds thoughtful pieces for the Koamishin ecosystem.',
     stack: 'React · TypeScript · Laravel',
     img: '/team/Angelika.png', commits: 0, url: 'https://github.com/elyashzyl',
@@ -48,7 +48,9 @@ const team = [
           <div class="team-info">
             <h3>{m.name}</h3>
             <span class="team-handle">{m.handle}</span>
-            <span class="badge" style="margin-top:0.6rem">{m.role}</span>
+            <div class="team-roles">
+              {m.roles.map((r) => <span class="badge">{r}</span>)}
+            </div>
             <span class="team-stack">{m.stack}</span>
             <p>{m.bio}</p>
             <div class="team-meta">
