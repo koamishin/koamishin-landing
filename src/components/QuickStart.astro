@@ -1,0 +1,407 @@
+---
+// QuickStart.astro - Interactive Developer Quick Start Terminal
+const tabs = [
+  {
+    id: 'eduflow',
+    label: 'EduFlow AI (Hackathon)',
+    badge: 'Flagship',
+    badgeColor: 'var(--coral)',
+    desc: 'Spin up the bounded departmental finance engine on Circle Agent Wallets & Arc testnet.',
+    reqs: ['PHP 8.2+', 'Composer 2.6+', 'Node 20+', 'Arc Testnet RPC'],
+    code: `# 1. Clone the EduFlow AI repository
+git clone https://github.com/koamishin/EduFlow.git
+cd EduFlow
+
+# 2. Install backend and frontend dependencies
+composer install
+npm install && npm run build
+
+# 3. Configure environment & database
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+
+# 4. Run the bounded autonomous agent simulation
+php artisan eduflow:demo`,
+  },
+  {
+    id: 'starterkit',
+    label: 'KoamiStarterKit v2.0',
+    badge: 'Popular',
+    badgeColor: 'var(--teal)',
+    desc: 'Production-ready Laravel 12 + Inertia.js + Octane starter kit with Wayfinder and Pest.',
+    reqs: ['PHP 8.2+', 'Composer 2+', 'Node 20+', 'MySQL 8+'],
+    code: `# 1. Clone the KoamiStarterKit starter repository
+git clone https://github.com/koamishin/KoamiStarterKit.git my-app
+cd my-app
+
+# 2. Install dependencies & configure env
+composer install
+cp .env.example .env
+php artisan key:generate
+
+# 3. Build front-end assets & start server
+npm install
+npm run build
+php artisan serve`,
+  },
+  {
+    id: 'konbi',
+    label: 'konbi POS',
+    badge: 'Retail ERP',
+    badgeColor: 'var(--gold)',
+    desc: 'Modern Convenience Store Management System for retail and inventory control.',
+    reqs: ['PHP 8.2+', 'Composer 2+', 'Node 18+', 'MySQL / MariaDB'],
+    code: `# 1. Clone the konbi store management repository
+git clone https://github.com/koamishin/konbi.git
+cd konbi
+
+# 2. Install dependencies & setup database
+composer install
+npm install
+cp .env.example .env
+php artisan migrate
+
+# 3. Launch the local cashier & inventory server
+php artisan serve`,
+  },
+];
+---
+
+<section class="section quickstart-section" id="quickstart">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="kicker">Developer Ergonomics</span>
+      <h2 class="section-title">Up and running in <em>under two minutes</em></h2>
+      <p class="lede">Every system built by the collective is pre-configured with strict types, CI/CD templates, and deterministic testing out of the box.</p>
+    </div>
+
+    <div class="qs-container" data-reveal>
+      <!-- Top Tab Switcher -->
+      <div class="qs-tabs" role="tablist" aria-label="Terminal target options">
+        {tabs.map((t, idx) => (
+          <button
+            type="button"
+            class={`qs-tab-btn ${idx === 0 ? 'active' : ''}`}
+            data-target={t.id}
+            role="tab"
+            aria-selected={idx === 0 ? 'true' : 'false'}
+          >
+            <span class="qs-tab-name">{t.label}</span>
+            <span class="qs-tab-badge" style={`background:${t.badgeColor}`}>{t.badge}</span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Main Terminal Box -->
+      <div class="qs-terminal-box">
+        <div class="qs-terminal-header">
+          <div class="qs-terminal-dots">
+            <span class="dot-red"></span>
+            <span class="dot-yellow"></span>
+            <span class="dot-green"></span>
+          </div>
+          <span class="qs-terminal-title" id="qs-active-title">bash · ~/koamishin/EduFlow</span>
+          <button type="button" class="qs-copy-btn" id="qs-copy-btn" aria-label="Copy terminal commands">
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-label">Copy Snippet</span>
+          </button>
+        </div>
+
+        <!-- Terminal Panels -->
+        {tabs.map((t, idx) => (
+          <div class={`qs-panel ${idx === 0 ? 'active' : ''}`} id={`qs-panel-${t.id}`}>
+            <div class="qs-meta-bar">
+              <p class="qs-desc">{t.desc}</p>
+              <div class="qs-reqs">
+                <span class="qs-req-label">Prerequisites:</span>
+                {t.reqs.map((r) => (
+                  <span class="qs-req-pill">{r}</span>
+                ))}
+              </div>
+            </div>
+
+            <pre class="qs-code-block"><code>{t.code}</code></pre>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quickstart-section {
+    padding-top: 1rem;
+    padding-bottom: 5rem;
+  }
+
+  .qs-container {
+    background: var(--night);
+    border: 1px solid rgba(251, 246, 239, 0.12);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 48px -12px rgba(48, 67, 51, 0.45);
+  }
+
+  .qs-tabs {
+    display: flex;
+    align-items: stretch;
+    background: rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(251, 246, 239, 0.08);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .qs-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.4rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: rgba(251, 246, 239, 0.6);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .qs-tab-btn:hover {
+    color: var(--cream);
+    background: rgba(251, 246, 239, 0.04);
+  }
+
+  .qs-tab-btn.active {
+    color: #fff;
+    background: rgba(251, 246, 239, 0.07);
+    border-bottom-color: var(--gold);
+  }
+
+  .qs-tab-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #fff;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .qs-terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(251, 246, 239, 0.08);
+  }
+
+  .qs-terminal-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .qs-terminal-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .qs-terminal-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: rgba(251, 246, 239, 0.6);
+  }
+
+  .qs-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(251, 246, 239, 0.08);
+    border: 1px solid rgba(251, 246, 239, 0.15);
+    color: var(--cream);
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .qs-copy-btn:hover {
+    background: rgba(251, 246, 239, 0.16);
+    color: #fff;
+    border-color: rgba(251, 246, 239, 0.3);
+  }
+
+  .qs-copy-btn.copied {
+    background: var(--teal);
+    color: #fff;
+    border-color: var(--teal);
+  }
+
+  .qs-panel {
+    display: none;
+    padding: 1.4rem 1.6rem;
+  }
+
+  .qs-panel.active {
+    display: block;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .qs-meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed rgba(251, 246, 239, 0.1);
+  }
+
+  .qs-desc {
+    font-size: 0.86rem;
+    color: rgba(251, 246, 239, 0.78);
+    margin: 0;
+  }
+
+  .qs-reqs {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .qs-req-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: rgba(251, 246, 239, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .qs-req-pill {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--cream);
+    background: rgba(251, 246, 239, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(251, 246, 239, 0.1);
+  }
+
+  .qs-code-block {
+    margin: 0;
+    padding: 1.1rem;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    border: 1px solid rgba(251, 246, 239, 0.08);
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--cream);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .qs-meta-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .qs-code-block {
+      font-size: 0.75rem;
+      padding: 0.85rem;
+    }
+    .qs-panel {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Tab switching and copy snippet functionality
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.qs-tab-btn');
+  const panels = document.querySelectorAll<HTMLElement>('.qs-panel');
+  const activeTitle = document.getElementById('qs-active-title');
+  const copyBtn = document.getElementById('qs-copy-btn');
+  const copyLabel = copyBtn?.querySelector('.copy-label');
+
+  const titles: Record<string, string> = {
+    eduflow: 'bash · ~/koamishin/EduFlow',
+    starterkit: 'bash · ~/koamishin/KoamiStarterKit',
+    konbi: 'bash · ~/koamishin/konbi',
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.target;
+      if (!target) return;
+
+      tabs.forEach((t) => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      panels.forEach((p) => {
+        p.classList.remove('active');
+      });
+
+      const activePanel = document.getElementById(`qs-panel-${target}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+
+      if (activeTitle && titles[target]) {
+        activeTitle.textContent = titles[target];
+      }
+    });
+  });
+
+  // Copy code logic
+  copyBtn?.addEventListener('click', async () => {
+    const currentActivePanel = document.querySelector<HTMLElement>('.qs-panel.active');
+    const code = currentActivePanel?.querySelector('code')?.textContent;
+    if (!code) return;
+
+    try {
+      await navigator.clipboard.writeText(code);
+      if (copyLabel) copyLabel.textContent = 'Copied! ✓';
+      copyBtn.classList.add('copied');
+
+      setTimeout(() => {
+        if (copyLabel) copyLabel.textContent = 'Copy Snippet';
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    } catch {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+
+      if (copyLabel) copyLabel.textContent = 'Copied! ✓';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        if (copyLabel) copyLabel.textContent = 'Copy Snippet';
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    }
+  });
+</script>

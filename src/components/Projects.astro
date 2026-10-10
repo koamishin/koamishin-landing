@@ -108,18 +108,39 @@ const projects = [
       <p class="lede">A curated directory of frameworks, enterprise platforms, and tools built by the collective. Clean code, tested architecture, and open on GitHub.</p>
     </div>
 
-    <!-- Category Filters (Apple Developer style) -->
-    <div class="directory-filter-bar" data-reveal>
-      <button type="button" class="dir-tab active" data-filter="all">All Systems <span class="tab-count">7</span></button>
-      <button type="button" class="dir-tab" data-filter="starter-kits">Starter Kits <span class="tab-count">1</span></button>
-      <button type="button" class="dir-tab" data-filter="platforms">Platforms &amp; ERP <span class="tab-count">4</span></button>
-      <button type="button" class="dir-tab" data-filter="tools">Tools &amp; SaaS <span class="tab-count">2</span></button>
+    <!-- Category Filters & Live Search Bar -->
+    <div class="directory-toolbar" data-reveal>
+      <div class="directory-filter-bar">
+        <button type="button" class="dir-tab active" data-filter="all">All Systems <span class="tab-count">7</span></button>
+        <button type="button" class="dir-tab" data-filter="starter-kits">Starter Kits <span class="tab-count">1</span></button>
+        <button type="button" class="dir-tab" data-filter="platforms">Platforms &amp; ERP <span class="tab-count">4</span></button>
+        <button type="button" class="dir-tab" data-filter="tools">Tools &amp; SaaS <span class="tab-count">2</span></button>
+      </div>
+
+      <div class="dir-search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input
+          type="search"
+          id="dir-search-input"
+          class="dir-search-input"
+          placeholder="Filter by stack or keyword (e.g. React, Vue, Octane, POS)..."
+          autocomplete="off"
+        />
+        <button type="button" id="dir-search-clear" class="dir-search-clear" aria-label="Clear search" style="display:none;">×</button>
+      </div>
     </div>
 
     <!-- Directory Listing -->
-    <div class="directory-list" data-reveal>
+    <div class="directory-list" id="directory-list" data-reveal>
       {projects.map((p) => (
-        <article class="dir-row" data-category={p.category}>
+        <article
+          class="dir-row"
+          data-category={p.category}
+          data-search={`${p.name} ${p.categoryLabel} ${p.desc} ${p.stack.join(' ')}`.toLowerCase()}
+        >
           <!-- Left: Core Info -->
           <div class="dir-main">
             <div class="dir-info">
@@ -163,6 +184,14 @@ const projects = [
           </div>
         </article>
       ))}
+
+      <!-- Empty State -->
+      <div class="dir-empty-state" id="dir-empty-state" style="display: none;">
+        <div class="empty-icon">🔍</div>
+        <p class="empty-title">No matching open-source systems found</p>
+        <p class="empty-sub">Try searching for another technology (like <em>Vue</em>, <em>Laravel</em>, or <em>Inertia</em>) or reset your filter.</p>
+        <button type="button" class="btn btn-ghost" id="dir-reset-btn">Reset Search &amp; Filters</button>
+      </div>
     </div>
 
     <!-- Directory Footer Quote / Explore Link -->
@@ -175,28 +204,188 @@ const projects = [
   </div>
 </section>
 
+<style>
+  .directory-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .directory-toolbar .directory-filter-bar {
+    margin-bottom: 0;
+  }
+
+  .dir-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.85rem;
+    position: relative;
+    transition: all 0.2s ease;
+    min-width: 280px;
+    flex: 1;
+    max-width: 380px;
+  }
+
+  .dir-search-wrap:focus-within {
+    border-color: var(--ink);
+    background: #fff;
+    box-shadow: 0 4px 14px -4px rgba(48, 67, 51, 0.15);
+  }
+
+  .search-icon {
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .dir-search-input {
+    border: none;
+    background: transparent;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+  }
+
+  .dir-search-input::placeholder {
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .dir-search-clear {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0 0.2rem;
+  }
+
+  .dir-search-clear:hover {
+    color: var(--ink);
+  }
+
+  .dir-empty-state {
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: rgba(248, 237, 220, 0.4);
+    border: 1px dashed var(--line);
+    border-radius: 16px;
+    margin-top: 1rem;
+  }
+
+  .empty-icon {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .empty-title {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.4rem;
+  }
+
+  .empty-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0 0 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .directory-toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .dir-search-wrap {
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+</style>
+
 <script>
-  // Apple-style directory category filter
+  // Combined category & live search filter
   const filterButtons = document.querySelectorAll<HTMLButtonElement>('.dir-tab');
   const rows = document.querySelectorAll<HTMLElement>('.dir-row');
+  const searchInput = document.getElementById('dir-search-input') as HTMLInputElement | null;
+  const searchClear = document.getElementById('dir-search-clear') as HTMLButtonElement | null;
+  const emptyState = document.getElementById('dir-empty-state') as HTMLElement | null;
+  const resetBtn = document.getElementById('dir-reset-btn') as HTMLButtonElement | null;
+
+  let currentCategory = 'all';
+  let currentSearchQuery = '';
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    rows.forEach((row) => {
+      const category = row.dataset.category || '';
+      const searchableText = row.dataset.search || '';
+
+      const matchesCategory = currentCategory === 'all' || category === currentCategory;
+      const matchesSearch = !currentSearchQuery || searchableText.includes(currentSearchQuery);
+
+      if (matchesCategory && matchesSearch) {
+        row.style.display = 'flex';
+        row.style.opacity = '1';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+        row.style.opacity = '0';
+      }
+    });
+
+    if (emptyState) {
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
 
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      
+      currentCategory = btn.dataset.filter || 'all';
       filterButtons.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-
-      rows.forEach((row) => {
-        const cat = row.dataset.category;
-        if (filter === 'all' || cat === filter) {
-          row.style.display = 'flex';
-          row.style.opacity = '1';
-        } else {
-          row.style.display = 'none';
-          row.style.opacity = '0';
-        }
-      });
+      applyFilters();
     });
+  });
+
+  searchInput?.addEventListener('input', () => {
+    currentSearchQuery = searchInput.value.trim().toLowerCase();
+    if (searchClear) {
+      searchClear.style.display = currentSearchQuery ? 'inline-block' : 'none';
+    }
+    applyFilters();
+  });
+
+  searchClear?.addEventListener('click', () => {
+    if (searchInput) {
+      searchInput.value = '';
+      currentSearchQuery = '';
+      searchClear.style.display = 'none';
+      searchInput.focus();
+      applyFilters();
+    }
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    currentCategory = 'all';
+    currentSearchQuery = '';
+    if (searchInput) searchInput.value = '';
+    if (searchClear) searchClear.style.display = 'none';
+    filterButtons.forEach((b) => {
+      if (b.dataset.filter === 'all') b.classList.add('active');
+      else b.classList.remove('active');
+    });
+    applyFilters();
   });
 </script>

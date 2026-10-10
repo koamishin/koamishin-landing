@@ -141,7 +141,155 @@
         </div>
       </div>
 
-      <!-- Bottom Horizontal 3-Column Pillars Grid (Eliminates dead space) -->
+      <!-- Interactive 3-Stage Architecture Flowchart / Stepper -->
+      <div class="hk-arch-flow" data-reveal>
+        <div class="hk-arch-header">
+          <div class="hk-arch-title-wrap">
+            <span class="hk-arch-pill">Architecture Deep-Dive</span>
+            <h4 class="hk-arch-title">How EduFlow AI Prevents Agentic Financial Drift</h4>
+          </div>
+          <p class="hk-arch-sub">Click each stage to trace the bounded transaction lifecycle from invoice receipt to on-chain Arc testnet settlement.</p>
+        </div>
+
+        <!-- 3 Interactive Step Nav Items -->
+        <div class="hk-stepper-nav" role="tablist" aria-label="Architecture Stages">
+          <button type="button" class="hk-step-btn active" data-step="1" role="tab" aria-selected="true">
+            <span class="step-num">01</span>
+            <span class="step-meta">
+              <span class="step-title">Ingestion &amp; AI Scan</span>
+              <span class="step-tag tag-ai">Agent Draft (Read-Only)</span>
+            </span>
+          </button>
+          <div class="hk-step-connector"></div>
+          <button type="button" class="hk-step-btn" data-step="2" role="tab" aria-selected="false">
+            <span class="step-num">02</span>
+            <span class="step-meta">
+              <span class="step-title">Deterministic Policy Gate</span>
+              <span class="step-tag tag-php">Strict PHP Rules Engine</span>
+            </span>
+          </button>
+          <div class="hk-step-connector"></div>
+          <button type="button" class="hk-step-btn" data-step="3" role="tab" aria-selected="false">
+            <span class="step-num">03</span>
+            <span class="step-meta">
+              <span class="step-title">Arc &amp; Circle Settlement</span>
+              <span class="step-tag tag-chain">USDC Testnet Execution</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Interactive Stage Details Card -->
+        <div class="hk-step-display">
+          <!-- Step 1 Details -->
+          <div class="hk-step-content active" id="hk-stage-1">
+            <div class="hk-stage-grid">
+              <div class="hk-stage-info">
+                <span class="hk-stage-badge">Stage 01 · Ingestion &amp; Analysis</span>
+                <h5>Agent Proposes, Never Signs</h5>
+                <p>When an invoice arrives (PDF or JSON), an autonomous LLM agent parses line items, tax numbers, and checks for duplicate billings. The AI is structurally isolated: it can only compose a draft disbursement proposal and cannot access private keys or move funds.</p>
+                <div class="hk-stage-specs">
+                  <div class="hk-spec-item">
+                    <b>Input</b>
+                    <span>Vendor Invoice, Department Code, PO Number</span>
+                  </div>
+                  <div class="hk-spec-item">
+                    <b>Boundary</b>
+                    <span>Strict read-only JSON schema; zero chain permissions</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hk-stage-code">
+                <div class="hk-stage-code-bar">
+                  <span>Proposal Schema (Draft Only)</span>
+                  <span class="badge-draft">READ_ONLY</span>
+                </div>
+                <pre><code>{`{
+  "vendor_id": "lab_supplies_co",
+  "department": "BIO_CHEMISTRY",
+  "invoice_amount_usdc": 45.00,
+  "confidence_score": 0.98,
+  "ai_recommendation": "AUTO_APPROVE",
+  "risk_assessment": "LOW_HISTORIC_MATCH"
+}`}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 Details -->
+          <div class="hk-step-content" id="hk-stage-2">
+            <div class="hk-stage-grid">
+              <div class="hk-stage-info">
+                <span class="hk-stage-badge">Stage 02 · Deterministic Gate</span>
+                <h5>Hard-Coded PHP Policy Checks</h5>
+                <p>The draft proposal is evaluated by a strictly typed PHP rule pipeline. If an invoice exceeds the department threshold (&le; 50.00 USDC for instant release) or triggers compliance rules, execution immediately halts for human multi-sign review.</p>
+                <div class="hk-stage-specs">
+                  <div class="hk-spec-item">
+                    <b>Rule Pipeline</b>
+                    <span>Department Budget Cap, Velocity Check, Compliance Gate</span>
+                  </div>
+                  <div class="hk-spec-item">
+                    <b>Escalation Policy</b>
+                    <span>Amounts &gt; 50.00 USDC route to Dean/Finance Lead Dashboard</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hk-stage-code">
+                <div class="hk-stage-code-bar">
+                  <span>Laravel Policy Rule Engine</span>
+                  <span class="badge-gate">DETERMINISTIC_PASS</span>
+                </div>
+                <pre><code>{`// Strict typed verification in plain PHP
+if ($invoice->amount > $policy->autoApproveMax) {
+    return PolicyResult::escalate('EXCEEDS_INSTANT_CAP');
+}
+
+if ($department->remainingMonthlyBudget < $invoice->amount) {
+    return PolicyResult::hold('TREASURY_RESERVE_SAFETY');
+}
+
+return PolicyResult::approved('VENDOR_AUTO_PAYMENT_V1');`}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 Details -->
+          <div class="hk-step-content" id="hk-stage-3">
+            <div class="hk-stage-grid">
+              <div class="hk-stage-info">
+                <span class="hk-stage-badge">Stage 03 · Execution &amp; Audit</span>
+                <h5>Cryptographic Settlement on Arc</h5>
+                <p>Once cleared, EduFlow AI calls the Circle Developer-Controlled Agent Wallet via the Lepton SDK. The transfer signs, executes on Arc testnet in native 6-decimal USDC, and records cryptographic receipts in both immutable audit logs and the departmental ledger.</p>
+                <div class="hk-stage-specs">
+                  <div class="hk-spec-item">
+                    <b>Execution Gateway</b>
+                    <span>Circle Agent Wallet via Lepton SDK</span>
+                  </div>
+                  <div class="hk-spec-item">
+                    <b>Network</b>
+                    <span>Arc Testnet with on-chain finality &amp; tx receipts</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hk-stage-code">
+                <div class="hk-stage-code-bar">
+                  <span>Arc Settlement Receipt</span>
+                  <span class="badge-chain">ON_CHAIN_CONFIRMED</span>
+                </div>
+                <pre><code>{`{
+  "network": "arc_testnet",
+  "token": "USDC (6 Decimals)",
+  "amount_raw": "45000000",
+  "recipient_wallet": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+  "tx_hash": "0x3f8a91bc9e...7c24a1",
+  "status": "SETTLED_FINAL"
+}`}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Horizontal 3-Column Pillars Grid -->
       <div class="hk-pillars-grid">
         <div class="hk-pillar">
           <div class="hk-pillar-dot">01</div>
@@ -170,3 +318,329 @@
     </div>
   </div>
 </section>
+
+<style>
+  .hk-arch-flow {
+    margin-top: 2rem;
+    padding: 1.8rem 1.6rem;
+    background: rgba(48, 67, 51, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+
+  .hk-arch-header {
+    margin-bottom: 1.6rem;
+  }
+
+  .hk-arch-pill {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--teal);
+    background: rgba(30, 90, 80, 0.08);
+    border: 1px solid rgba(30, 90, 80, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    margin-bottom: 0.4rem;
+  }
+
+  .hk-arch-title {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin: 0.2rem 0 0.4rem;
+    font-weight: 700;
+  }
+
+  .hk-arch-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .hk-stepper-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.6rem;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hk-step-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.15rem;
+    border-radius: 14px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .hk-step-btn:hover {
+    border-color: var(--line-strong);
+    background: #fff;
+    transform: translateY(-2px);
+  }
+
+  .hk-step-btn.active {
+    background: var(--night);
+    border-color: var(--night);
+    box-shadow: 0 8px 24px -8px rgba(30, 42, 33, 0.4);
+  }
+
+  .hk-step-btn .step-num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--ink);
+    background: rgba(48, 67, 51, 0.08);
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .hk-step-btn.active .step-num {
+    background: var(--gold);
+    color: var(--night);
+  }
+
+  .step-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .step-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+
+  .hk-step-btn.active .step-title {
+    color: #fff;
+  }
+
+  .step-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+  }
+
+  .tag-ai { color: var(--coral); }
+  .tag-php { color: var(--teal); }
+  .tag-chain { color: var(--gold); }
+
+  .hk-step-connector {
+    width: 20px;
+    height: 2px;
+    background: var(--line-strong);
+    flex-shrink: 0;
+  }
+
+  .hk-step-display {
+    background: var(--cream);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 1.6rem;
+    box-shadow: 0 10px 30px -10px rgba(48, 67, 51, 0.1);
+  }
+
+  .hk-step-content {
+    display: none;
+  }
+
+  .hk-step-content.active {
+    display: block;
+    animation: fadeInStep 0.25s ease;
+  }
+
+  @keyframes fadeInStep {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hk-stage-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.8rem;
+    align-items: stretch;
+  }
+
+  .hk-stage-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hk-stage-badge {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+  }
+
+  .hk-stage-info h5 {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.6rem;
+  }
+
+  .hk-stage-info p {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin: 0 0 1.2rem;
+  }
+
+  .hk-stage-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    background: rgba(248, 237, 220, 0.7);
+    border: 1px solid var(--line);
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+  }
+
+  .hk-spec-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .hk-spec-item b {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hk-spec-item span {
+    font-size: 0.76rem;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .hk-stage-code {
+    background: var(--night);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(251, 246, 239, 0.15);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hk-stage-code-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(251, 246, 239, 0.08);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: rgba(251, 246, 239, 0.7);
+  }
+
+  .badge-draft {
+    background: rgba(220, 80, 50, 0.2);
+    color: var(--coral);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .badge-gate {
+    background: rgba(30, 140, 110, 0.2);
+    color: #4ade80;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .badge-chain {
+    background: rgba(230, 160, 40, 0.2);
+    color: var(--gold);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .hk-stage-code pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 1.55;
+    color: var(--cream);
+    flex: 1;
+  }
+
+  @media (max-width: 900px) {
+    .hk-stage-grid {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+    .hk-step-connector {
+      display: none;
+    }
+    .hk-stepper-nav {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .hk-step-btn {
+      min-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Interactive Stepper Logic
+  const stepButtons = document.querySelectorAll<HTMLButtonElement>('.hk-step-btn');
+  const stepContents = document.querySelectorAll<HTMLElement>('.hk-step-content');
+
+  stepButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = btn.dataset.step;
+      if (!step) return;
+
+      stepButtons.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      stepContents.forEach((c) => {
+        c.classList.remove('active');
+      });
+
+      const targetContent = document.getElementById(`hk-stage-${step}`);
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+    });
+  });
+</script>
