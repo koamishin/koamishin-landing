@@ -156,7 +156,10 @@
           <button type="button" class="hk-step-btn active" data-step="1" role="tab" aria-selected="true">
             <span class="step-num">01</span>
             <span class="step-meta">
-              <span class="step-title">Ingestion &amp; AI Scan</span>
+              <span class="step-title">
+                <span class="title-full">Ingestion &amp; AI Scan</span>
+                <span class="title-short">AI Scan</span>
+              </span>
               <span class="step-tag tag-ai">Agent Draft (Read-Only)</span>
             </span>
           </button>
@@ -164,7 +167,10 @@
           <button type="button" class="hk-step-btn" data-step="2" role="tab" aria-selected="false">
             <span class="step-num">02</span>
             <span class="step-meta">
-              <span class="step-title">Deterministic Policy Gate</span>
+              <span class="step-title">
+                <span class="title-full">Deterministic Policy Gate</span>
+                <span class="title-short">Policy Gate</span>
+              </span>
               <span class="step-tag tag-php">Strict PHP Rules Engine</span>
             </span>
           </button>
@@ -172,7 +178,10 @@
           <button type="button" class="hk-step-btn" data-step="3" role="tab" aria-selected="false">
             <span class="step-num">03</span>
             <span class="step-meta">
-              <span class="step-title">Arc &amp; Circle Settlement</span>
+              <span class="step-title">
+                <span class="title-full">Arc &amp; Circle Settlement</span>
+                <span class="title-short">Arc Settle</span>
+              </span>
               <span class="step-tag tag-chain">USDC Testnet Execution</span>
             </span>
           </button>
@@ -431,6 +440,14 @@ return PolicyResult::approved('VENDOR_AUTO_PAYMENT_V1');`}</code></pre>
     transition: color 0.2s ease;
   }
 
+  .title-short {
+    display: none;
+  }
+
+  .title-full {
+    display: inline;
+  }
+
   .hk-step-btn.active .step-title {
     color: #fff;
   }
@@ -439,11 +456,16 @@ return PolicyResult::approved('VENDOR_AUTO_PAYMENT_V1');`}</code></pre>
     font-family: var(--mono);
     font-size: 0.65rem;
     font-weight: 600;
+    transition: color 0.2s ease;
   }
 
   .tag-ai { color: var(--coral); }
   .tag-php { color: var(--teal); }
   .tag-chain { color: var(--gold); }
+
+  .hk-step-btn.active .tag-ai { color: #ff8b7b; }
+  .hk-step-btn.active .tag-php { color: #4ade80; }
+  .hk-step-btn.active .tag-chain { color: #fbbf24; }
 
   .hk-step-connector {
     width: 20px;
@@ -599,19 +621,98 @@ return PolicyResult::approved('VENDOR_AUTO_PAYMENT_V1');`}</code></pre>
   }
 
   @media (max-width: 900px) {
-    .hk-stage-grid {
-      grid-template-columns: 1fr;
-      gap: 1.2rem;
+    .hk-arch-flow {
+      padding: 1.15rem 0.9rem;
+      border-radius: 14px;
+      margin-top: 1.5rem;
     }
+
+    .hk-arch-title {
+      font-size: 1.12rem;
+    }
+
+    .hk-arch-sub {
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
     .hk-step-connector {
       display: none;
     }
+
     .hk-stepper-nav {
-      flex-direction: column;
-      align-items: stretch;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.35rem;
+      margin-bottom: 1rem;
     }
+
     .hk-step-btn {
-      min-width: 100%;
+      min-width: 0;
+      padding: 0.55rem 0.35rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.25rem;
+      border-radius: 10px;
+    }
+
+    .hk-step-btn .step-num {
+      width: 22px;
+      height: 22px;
+      font-size: 0.72rem;
+      border-radius: 6px;
+    }
+
+    .title-full {
+      display: none;
+    }
+
+    .title-short {
+      display: inline;
+      font-size: 0.74rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .step-tag {
+      display: none;
+    }
+
+    .hk-step-display {
+      padding: 1.1rem 0.95rem;
+      border-radius: 14px;
+    }
+
+    .hk-stage-grid {
+      grid-template-columns: 1fr;
+      gap: 1.1rem;
+    }
+
+    .hk-stage-info h5 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .hk-stage-info p {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin-bottom: 0.85rem;
+    }
+
+    .hk-stage-specs {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      padding: 0.7rem 0.8rem;
+    }
+
+    .hk-stage-code {
+      border-radius: 12px;
+    }
+
+    .hk-stage-code pre {
+      font-size: 0.7rem;
+      padding: 0.85rem;
     }
   }
 </style>
