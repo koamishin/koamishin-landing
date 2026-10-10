@@ -124,22 +124,67 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: var(--hair);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-.brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 800; font-size: 1.4rem; letter-spacing: -0.01em; }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 .brand .mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--coral); color: #fff; font-size: 1.05rem; }
 .brand small { font-family: var(--mono); font-size: 0.56rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); align-self: flex-end; padding-bottom: 3px; }
 .brand-logo { width: 34px; height: 34px; border-radius: 10px; object-fit: cover; display: block; box-shadow: var(--shadow-sm); }
-.nav-links { display: flex; align-items: center; gap: 0.3rem; list-style: none; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 1;
+}
 .nav-links > li { position: relative; }
 .nav-links > li > a, .nav-links > li > button {
   display: inline-flex; align-items: center; gap: 0.35rem;
-  font-size: 0.92rem; font-weight: 500; color: var(--ink-soft);
-  padding: 0.55rem 0.85rem; border-radius: 10px; background: none; border: none; cursor: pointer; font-family: var(--body);
+  font-size: 0.88rem; font-weight: 500; color: var(--ink-soft);
+  padding: 0.45rem 0.68rem; border-radius: 10px; background: none; border: none; cursor: pointer; font-family: var(--body);
   transition: all 0.18s ease;
+  white-space: nowrap;
 }
 .nav-links > li > a:hover, .nav-links > li > button:hover { background: var(--cream-2); color: var(--ink); }
 .nav-links .caret { font-size: 0.7rem; color: var(--coral); transition: transform 0.2s; }
-.nav-cta { display: flex; align-items: center; gap: 0.6rem; }
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.nav-cta .btn {
+  padding: 0.5rem 1.15rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-cta .btn-primary {
+  padding: 0.5rem 1.25rem;
+  box-shadow: 0 4px 14px -3px rgba(60, 77, 61, 0.4);
+}
 .btn-text-short { display: none; }
 .btn-text-full { display: inline; }
 
