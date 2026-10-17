@@ -2,15 +2,15 @@
 // QuickStart.astro - Interactive Developer Quick Start Terminal
 const tabs = [
   {
-    id: 'eduflow',
-    label: 'EduFlow AI (Hackathon)',
+    id: 'opensinop',
+    label: 'OpenSinop (Hackathon)',
     badge: 'Flagship',
     badgeColor: 'var(--coral)',
-    desc: 'Spin up the bounded departmental finance engine on Circle Agent Wallets & Arc testnet.',
-    reqs: ['PHP 8.2+', 'Composer 2.6+', 'Node 20+', 'Arc Testnet RPC'],
-    code: `# 1. Clone the EduFlow AI repository
-git clone https://github.com/koamishin/EduFlow.git
-cd EduFlow
+    desc: 'Spin up the bounded departmental finance engine on Circle Agent Wallets & Arc testnet. Live deployment at opensinop.koamishin.com.',
+    reqs: ['PHP 8.5+', 'Composer 2.x', 'Node 20+', 'Arc Testnet RPC'],
+    code: `# 1. Clone the OpenSinop repository
+git clone https://github.com/koamishin/OpenSinop.git
+cd OpenSinop
 
 # 2. Install backend and frontend dependencies
 composer install
@@ -19,10 +19,12 @@ npm install && npm run build
 # 3. Configure environment & database
 cp .env.example .env
 php artisan key:generate
-php artisan migrate --seed
+touch database/database.sqlite
+php artisan migrate:fresh --seed
 
-# 4. Run the bounded autonomous agent simulation
-php artisan eduflow:demo`,
+# 4. Verify toolchain & run autonomous agent simulation
+php artisan lepton:doctor
+php artisan app:demo`,
   },
   {
     id: 'starterkit',
@@ -101,7 +103,7 @@ php artisan serve`,
             <span class="dot-yellow"></span>
             <span class="dot-green"></span>
           </div>
-          <span class="qs-terminal-title" id="qs-active-title">bash · ~/koamishin/EduFlow</span>
+          <span class="qs-terminal-title" id="qs-active-title">bash · ~/koamishin/OpenSinop</span>
           <button type="button" class="qs-copy-btn" id="qs-copy-btn" aria-label="Copy terminal commands">
             <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -340,7 +342,7 @@ php artisan serve`,
   const copyLabel = copyBtn?.querySelector('.copy-label');
 
   const titles: Record<string, string> = {
-    eduflow: 'bash · ~/koamishin/EduFlow',
+    opensinop: 'bash · ~/koamishin/OpenSinop',
     starterkit: 'bash · ~/koamishin/KoamiStarterKit',
     konbi: 'bash · ~/koamishin/konbi',
   };

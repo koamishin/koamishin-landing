@@ -291,7 +291,7 @@ a { color: inherit; text-decoration: none; }
 .fcard:hover .f-link .arr { transform: translateX(4px); }
 .fcard .f-num { position: absolute; top: 1.1rem; right: 1.3rem; font-family: var(--mono); font-size: 0.66rem; font-weight: 600; color: var(--line-strong); }
 
-/* ---------- Hackathon Spotlight (EduFlow) ---------- */
+/* ---------- Hackathon Spotlight (OpenSinop) ---------- */
 .hackathon-section {
   padding-top: 1rem;
   padding-bottom: 2.5rem;
