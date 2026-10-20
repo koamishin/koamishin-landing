@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MarkdownPost from '../../components/blog/MarkdownPost';
+import OpenSinopShowcase from '../../components/blog/OpenSinopShowcase';
+import { getPublishedPosts, formatDate, readingTime } from '../../lib/blog';
+import type { CollectionEntry } from 'astro:content';
+import '../../styles/blog.css';
+import '../../styles/opensinop.css';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, author, tags } = post.data;
+
+const allPosts = await getPublishedPosts();
+const currentIndex = allPosts.findIndex((entry) => entry.id === post.id);
+const newer = currentIndex > 0 ? allPosts[currentIndex - 1] : undefined;
+const older = currentIndex >= 0 && currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : undefined;
+
+const canonicalURL = new URL(`/blog/${post.id}/`, Astro.site ?? 'https://koamishin.com').href;
+const publishedISO = pubDate.toISOString();
+const updatedISO = (updatedDate ?? pubDate).toISOString();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: publishedISO,
+  dateModified: updatedISO,
+  author: {
+    '@type': 'Organization',
+    name: author,
+    url: 'https://koamishin.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Koamishin',
+    url: 'https://koamishin.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://koamishin.com/koamishin-logo.png',
+    },
+  },
+  mainEntityOfPage: canonicalURL,
+  keywords: tags.join(', '),
+  wordCount: post.body ? post.body.trim().split(/\s+/).length : 0,
+};
+---
+
+<BaseLayout title={`${title} — Koamishin Journal`} description={description}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+
+  <article class="section post-section">
+    <div class="wrap post-wrap">
+      <nav class="post-crumbs" aria-label="Breadcrumb">
+        <a href="/blog/">Journal</a>
+        <span aria-hidden="true">/</span>
+        <span>{title}</span>
+      </nav>
+
+      <header class="post-header" data-reveal>
+        <div class="post-tags">
+          {tags.map((tag) => (
+            <a class="blog-chip" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>
+          ))}
+        </div>
+
+        <h1 class="post-title">{title}</h1>
+        <p class="post-deck">{description}</p>
+
+        <div class="post-meta">
+          <span class="post-author">{author}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={publishedISO}>{formatDate(pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime(post.body)} min read</span>
+          {updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated {formatDate(updatedDate)}</span>
+            </>
+          )}
+        </div>
+      </header>
+
+      {post.data.cover && (
+        <div class="post-cover" data-reveal>
+          <img src={post.data.cover} alt="" width="1024" height="576" loading="lazy" />
+        </div>
+      )}
+
+      <div class="post-content" data-reveal>
+        <MarkdownPost content={post.body ?? ''} />
+      </div>
+
+      {post.data.showcase === 'opensinop' && (
+        <div class="post-content post-showcase">
+          <OpenSinopShowcase client:load />
+        </div>
+      )}
+
+      <footer class="post-footer" data-reveal>
+        <a class="btn btn-ghost" href="/blog/">← All posts</a>
+        <div class="post-nav">
+          {newer && (
+            <a class="post-nav-link" href={`/blog/${newer.id}/`}>
+              <span class="post-nav-label">Newer</span>
+              <span class="post-nav-title">{newer.data.title}</span>
+            </a>
+          )}
+          {older && (
+            <a class="post-nav-link" href={`/blog/${older.id}/`}>
+              <span class="post-nav-label">Older</span>
+              <span class="post-nav-title">{older.data.title}</span>
+            </a>
+          )}
+        </div>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  import '../../scripts/animations.js';
+
+  // Copy-to-clipboard for fenced code blocks rendered by the React markdown component.
+  function legacyCopy(text: string): boolean {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.top = '-1000px';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+
+    try {
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    } finally {
+      document.body.removeChild(area);
+    }
+  }
+
+  document.addEventListener('click', async (event) => {
+    const target = event.target as HTMLElement | null;
+    const button = target?.closest<HTMLElement>('[data-md-copy]');
+    if (!button) return;
+
+    const codeId = button.dataset.mdCopy;
+    const code = codeId ? document.getElementById(codeId) : null;
+    if (!code) return;
+
+    const text = code.textContent ?? '';
+    let copied = false;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      copied = true;
+    } catch {
+      // Clipboard API is unavailable on non-secure origins — fall back.
+      copied = legacyCopy(text);
+    }
+
+    button.textContent = copied ? 'Copied' : 'Press Ctrl+C';
+    button.dataset.copied = copied ? 'true' : 'false';
+
+    window.setTimeout(() => {
+      button.textContent = 'Copy';
+      button.dataset.copied = 'false';
+    }, 1800);
+  });
+</script>

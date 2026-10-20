@@ -43,25 +43,32 @@ import { animate, createTimeline, stagger, set } from 'animejs';
     }, 1600);
 
     document.querySelectorAll('[data-words]').forEach(splitWords);
-    set('[data-words]', { opacity: 1 });
-    set('.w-i', { opacity: 0 });
+    if (document.querySelector('[data-words]')) {
+      set('[data-words]', { opacity: 1 });
+      set('.w-i', { opacity: 0 });
+    }
 
-    // ---- HERO entrance ----
-    var heroTl = createTimeline({ defaults: { ease: 'outExpo', duration: 800 } });
-    heroTl
-      .add('.badges', { opacity: [0, 1], translateY: [14, 0], duration: 500 })
-      .add('.hero-title .w-i', { opacity: [0, 1], translateY: ['90%', '0%'], rotateX: [-25, 0], transformOrigin: ['0% 100%', '0% 100%'], delay: stagger(40), duration: 950 }, '-=300')
-      .add('.hero-deck', { opacity: [0, 1], translateY: [20, 0], duration: 650 }, '-=550')
-      .add('.hero-ctas', { opacity: [0, 1], translateY: [16, 0], duration: 500 }, '-=400')
-      .add('.hero-proof', { opacity: [0, 1], translateY: [14, 0], duration: 500 }, '-=350');
+    // ---- HERO entrance (home page only) ----
+    if (document.querySelector('.hero-title')) {
+      var heroTl = createTimeline({ defaults: { ease: 'outExpo', duration: 800 } });
+      heroTl
+        .add('.badges', { opacity: [0, 1], translateY: [14, 0], duration: 500 })
+        .add('.hero-title .w-i', { opacity: [0, 1], translateY: ['90%', '0%'], rotateX: [-25, 0], transformOrigin: ['0% 100%', '0% 100%'], delay: stagger(40), duration: 950 }, '-=300')
+        .add('.hero-deck', { opacity: [0, 1], translateY: [20, 0], duration: 650 }, '-=550')
+        .add('.hero-ctas', { opacity: [0, 1], translateY: [16, 0], duration: 500 }, '-=400')
+        .add('.hero-proof', { opacity: [0, 1], translateY: [14, 0], duration: 500 }, '-=350');
+    }
 
     // ---- Scroll reveals (IntersectionObserver drives anime) ----
     function revealEl(el, params) {
+      // A tall element (a long article, for example) may never reach 12% of
+      // its own height inside the viewport, so fall back to "any part visible".
+      var tall = el.getBoundingClientRect().height > window.innerHeight * 0.9;
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           if (en.isIntersecting) { io.unobserve(el); animate(el, params); }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+      }, { threshold: tall ? 0 : 0.12, rootMargin: '0px 0px -6% 0px' });
       io.observe(el);
     }
     document.querySelectorAll('[data-reveal]').forEach(function (el) {

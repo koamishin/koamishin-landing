@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogIndex from '../../components/blog/BlogIndex';
+import { getPublishedPosts, readingTime, formatShortDate } from '../../lib/blog';
+import '../../styles/blog.css';
+
+const posts = await getPublishedPosts();
+
+const indexPosts = posts.map((post) => ({
+  slug: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  pubDate: post.data.pubDate.toISOString(),
+  author: post.data.author,
+  tags: post.data.tags,
+  readingMinutes: readingTime(post.body),
+  cover: post.data.cover,
+}));
+
+const sorted = [...posts].sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title="Journal — Koamishin Collective"
+  description="Notes from the Koamishin collective: Laravel architecture, open-source systems, deep dives on our flagship work, and how we work in public."
+>
+  <section class="section blog-hero">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">The Journal</span>
+        <h1 class="section-title">Notes from the <em>workshop</em></h1>
+        <p class="lede">
+          Deep dives on the systems we publish, the reasoning behind our defaults, and how a
+          growing collective of Laravel artisans works in the open.
+        </p>
+      </div>
+
+      <div class="blog-feature" data-reveal>
+        {sorted[0] && (
+          <article class="blog-feature-card">
+            <div class="blog-feature-body">
+              <span class="blog-feature-tag">Latest</span>
+              <h2>
+                <a href={`/blog/${sorted[0].id}/`}>{sorted[0].data.title}</a>
+              </h2>
+              <p>{sorted[0].data.description}</p>
+              <div class="blog-feature-meta">
+                <time datetime={sorted[0].data.pubDate.toISOString()}>
+                  {formatShortDate(sorted[0].data.pubDate)}
+                </time>
+                <span aria-hidden="true">·</span>
+                <span>{readingTime(sorted[0].body)} min read</span>
+                <span aria-hidden="true">·</span>
+                <span>{sorted[0].data.author}</span>
+              </div>
+              <a class="btn btn-primary" href={`/blog/${sorted[0].id}/`}>Read the post →</a>
+            </div>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section blog-list-section">
+    <div class="wrap">
+      <BlogIndex client:load posts={indexPosts} />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../../scripts/animations.js';
+</script>

@@ -1,0 +1,171 @@
+---
+import { getPublishedPosts, formatShortDate, readingTime } from '../lib/blog';
+
+const posts = (await getPublishedPosts()).slice(0, 3);
+---
+
+{posts.length > 0 && (
+  <section class="section journal-section" id="journal">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">The Journal</span>
+        <h2 class="section-title">Notes from the <em>workshop</em></h2>
+        <p class="lede">
+          Deep dives on the systems we publish, the reasoning behind our defaults, and how a growing
+          collective of Laravel artisans works in the open.
+        </p>
+      </div>
+
+      <div class="journal-grid" data-reveal>
+        {posts.map((post) => (
+          <article class="journal-card">
+            <div class="journal-card-meta">
+              <time datetime={post.data.pubDate.toISOString()}>{formatShortDate(post.data.pubDate)}</time>
+              <span aria-hidden="true">·</span>
+              <span>{readingTime(post.body)} min read</span>
+            </div>
+
+            <h3 class="journal-card-title">
+              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            </h3>
+
+            <p class="journal-card-desc">{post.data.description}</p>
+
+            <div class="journal-card-foot">
+              <span class="journal-card-tags">
+                {post.data.tags.slice(0, 3).map((tag) => (
+                  <span class="blog-chip">{tag}</span>
+                ))}
+              </span>
+              <a class="journal-card-link" href={`/blog/${post.id}/`}>
+                Read <span class="arr">→</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="journal-footer" data-reveal>
+        <a class="btn btn-ghost" href="/blog/">Browse all posts →</a>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .journal-section {
+    background: var(--cream-2);
+  }
+
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.3rem;
+  }
+
+  .journal-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.4rem 1.3rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .journal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--line-strong);
+  }
+
+  .journal-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+  }
+
+  .journal-card-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .journal-card-title a:hover {
+    color: var(--coral-dk);
+  }
+
+  .journal-card-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    flex: 1;
+    margin-bottom: 1.1rem;
+  }
+
+  .journal-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .journal-card-tags {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .journal-card-tags .blog-chip {
+    cursor: default;
+  }
+
+  .journal-card-tags .blog-chip:hover {
+    background: rgba(60, 77, 61, 0.08);
+    border-color: rgba(60, 77, 61, 0.16);
+    color: var(--coral-dk);
+  }
+
+  .journal-card-link {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--coral-dk);
+    transition: color 0.18s ease;
+  }
+
+  .journal-card-link:hover {
+    color: var(--coral);
+  }
+
+  .journal-card-link .arr {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .journal-card-link:hover .arr {
+    transform: translateX(3px);
+  }
+
+  .journal-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.2rem;
+  }
+</style>
