@@ -1,0 +1,87 @@
+# Koamishin — Full Technical Documentation & Architecture Specification
+
+> Comprehensive system documentation for AI agents, developers, and autonomous systems interacting with the Koamishin collective ecosystem.
+
+Website: https://koamishin.com
+GitHub Organization: https://github.com/koamishin
+Founded: 2024
+License: MIT / AGPL-3.0
+
+---
+
+## 1. Overview & Mission
+
+Koamishin is an independent developer collective focused on building high-performance, strictly typed, and deterministic web applications and open-source frameworks. The collective emphasizes:
+1. Strict backend typing and deterministic logic (PHP 8.2+, Laravel 12/13).
+2. Modern, accessible, high-performance user interfaces (Inertia.js, Vue 3, React 19, Tailwind CSS 4).
+3. Bounded agentic systems where autonomous AI components are strictly separated from execution authority, policy enforcement, and financial movement.
+
+---
+
+## 2. Featured Projects & Architecture
+
+### 2.1 OpenSinop (Circle Agent × Arc Network Hackathon)
+- **Live URL**: https://opensinop.koamishin.com/
+- **GitHub**: https://github.com/koamishin/OpenSinop
+- **Architecture**: Bounded Departmental Finance Orchestration
+  - **Stage 01 (Agent Ingestion & Analysis)**: LLM agents parse vendor invoices, extract structured metadata, and draft disbursement proposals. The AI has zero chain credentials and read-only database permissions.
+  - **Stage 02 (Deterministic PHP Policy Gate)**: Hard rules in pure PHP evaluate instant-cap rules (e.g. <= 50.00 USDC), remaining departmental budgets, and compliance checks. If any threshold is breached, the transaction halts and escalates to human review.
+  - **Stage 03 (Settlement on Arc Testnet)**: Approved transactions call Circle Developer-Controlled Agent Wallets via the Lepton SDK, executing 6-decimal USDC settlements on Arc testnet with cryptographic receipts.
+- **Stack**: Laravel 13, React 19, Inertia.js, Filament, Octane, Arc Testnet RPC, Circle Agent SDK.
+
+### 2.2 KoamiStarterKit v2.0
+- **GitHub**: https://github.com/koamishin/KoamiStarterKit
+- **Purpose**: Modern opinionated Laravel starter kit designed for rapid enterprise setup.
+- **Included Modules**:
+  - Laravel 12 + Vue 3 + Inertia.js + Tailwind CSS 4
+  - Laravel Fortify authentication (Two-Factor Authentication, Session Management)
+  - Wayfinder typed routing
+  - Laravel Octane high-performance execution
+  - Pest PHP testing framework with 100% pre-configured test scaffolding
+  - Automated GitHub Actions CI/CD workflows
+
+### 2.3 Academic & Enterprise Platforms
+- **koakademy**: Academic management platform for enrollment, billing, student lifecycles, and progressive web application (PWA) offline support.
+- **KoaScholarships**: Scholarship application, document verification, and merit disbursement portal powered by Filament and Livewire.
+- **konbi**: Convenience store POS and multi-outlet inventory tracking system.
+- **konexus**: Enterprise School Management Information System (SMIS) for institutional departments and student grading.
+- **Koattendance**: Shift scheduling and workforce timecard platform with biometric verification hooks.
+- **koment**: Esports and tournament management software with dynamic bracket generation and match score feeds.
+
+---
+
+## 3. Quick Start Commands
+
+### OpenSinop
+```bash
+git clone https://github.com/koamishin/OpenSinop.git
+cd OpenSinop
+composer install
+npm install && npm run build
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate:fresh --seed
+php artisan lepton:doctor
+php artisan app:demo
+```
+
+### KoamiStarterKit
+```bash
+git clone https://github.com/koamishin/KoamiStarterKit.git my-app
+cd my-app
+composer install
+cp .env.example .env
+php artisan key:generate
+npm install && npm run build
+php artisan serve
+```
+
+---
+
+## 4. Collective Team
+
+- **Louis (@Rui-Zen / @yukazakiri)**: Founder & Principal Architect. Laravel framework internals, starter kit infrastructure, and clean OSS architecture.
+- **Ortiz Bugtong Jr (@SorenOutis)**: Full Stack & AI Engineer. Scalable data systems, AI tooling, and reactive frontend architectures.
+- **Jaymark (@jayreid017)**: UI/UX Designer & Mobile Developer. Human-centered design systems and responsive cross-platform applications.
+- **Angelika (@elyashzyl)**: Frontend Developer & Design Engineer. Modular React/Vue design systems and accessible client-side interfaces.

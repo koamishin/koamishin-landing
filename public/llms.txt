@@ -1,0 +1,29 @@
+# Koamishin
+
+> Koamishin is an open-source developer collective crafting secure, high-performance Laravel applications, starter kits, and enterprise management systems built in the open.
+
+Koamishin builds open-source developer tools, educational platforms, and financial orchestration frameworks. All repositories are open source under permissive licenses (MIT / AGPL-3.0) and maintained by the collective.
+
+## Primary Projects
+
+- [OpenSinop](https://opensinop.koamishin.com/): Bounded departmental finance orchestration system built for the Circle Agent × Arc Network Hackathon. AI agents analyze invoices and propose disbursements while deterministic PHP policy engines enforce reserve limits and cryptographic Arc testnet settlement.
+- [OpenSinop GitHub Repository](https://github.com/koamishin/OpenSinop): Source code, Laravel 13, React 19, Inertia.js, and Arc settlement architecture for OpenSinop.
+- [KoamiStarterKit](https://github.com/koamishin/KoamiStarterKit): Production-ready modern Laravel 12 starter kit featuring Vue 3, Inertia.js, Tailwind CSS 4, Fortify authentication, Wayfinder routing, Octane, and Pest test suites.
+- [koakademy](https://github.com/koamishin/koakademy): Academic lifecycle management platform with enrollment, billing, scheduling, and PWA capabilities.
+- [KoaScholarships](https://github.com/koamishin/KoaScholarships): Educational grant and scholarship portal powered by Laravel, Filament, and Livewire.
+- [konbi](https://github.com/koamishin/konbi): Scalable convenience store and inventory point-of-sale (POS) management system.
+- [konexus](https://github.com/koamishin/konexus): Enterprise School Management Information System (SMIS) for multi-department governance and academic reporting.
+- [Koattendance](https://github.com/koamishin/Koattendance): Workforce time-tracking and biometric shift scheduling platform.
+- [koment](https://github.com/koamishin/koment): Tournament and event management platform with automated bracket trees and live match dashboards.
+
+## Core Collective & Architecture
+
+- [Koamishin GitHub Organization](https://github.com/koamishin): Central hub for all collective repositories, tools, and discussions.
+- [Official Website](https://koamishin.com/): Landing page, interactive architecture walkthrough, and quick start terminal guides.
+- [Full LLM Documentation](https://koamishin.com/llms-full.txt): Comprehensive technical specifications, architecture diagrams, and quickstart commands for LLM consumption.
+
+## Tech Stack Standards
+
+- Backend: PHP 8.2+, Laravel 12 & 13, Octane, Pest PHP, Fortify, Wayfinder
+- Frontend: Vue 3, React 19, Inertia.js, Tailwind CSS 4, TypeScript
+- Blockchain & Agents: Circle Developer-Controlled Agent Wallets, Arc Testnet, Lepton SDK, deterministic policy engines
