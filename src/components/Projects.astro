@@ -173,11 +173,11 @@ const projects = [
             
             <div class="dir-buttons">
               {p.docs && (
-                <a class="dir-btn dir-btn-docs" href={p.docs} target="_blank" rel="noopener">
+                <a class="dir-btn dir-btn-docs" href={p.docs} target="_blank" rel="noopener" aria-label={`Read ${p.name} documentation`}>
                   Docs ↗
                 </a>
               )}
-              <a class="dir-btn dir-btn-gh" href={p.url} target="_blank" rel="noopener">
+              <a class="dir-btn dir-btn-gh" href={p.url} target="_blank" rel="noopener" aria-label={`View ${p.name} on GitHub`}>
                 GitHub <span class="arr">→</span>
               </a>
             </div>

@@ -27,7 +27,12 @@ const imageURL = new URL(image, 'https://koamishin.com');
   <meta name="theme-color" content="#3C4D3D" />
   <link rel="canonical" href={canonicalURL} />
   <link rel="alternate" type="application/rss+xml" title="Koamishin Journal" href="/rss.xml" />
-  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="sitemap" href="/sitemap.xml" />
+  <link rel="alternate" hreflang="x-default" href="https://koamishin.com/" />
+  <link rel="alternate" hreflang="en" href="https://koamishin.com/" />
+
+  <!-- Agentic Resource Discovery (ARD) -->
+  <link rel="ard" href="/.well-known/ard.json" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/favicon.png" />
@@ -51,25 +56,72 @@ const imageURL = new URL(image, 'https://koamishin.com');
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={imageURL} />
 
-  <!-- Google Fonts Preconnect & Stylesheet -->
+  <!-- Google Fonts Preconnect & Async Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" />
+  </noscript>
 
-  <!-- Structured Data (JSON-LD) -->
+  <!-- Structured Data (JSON-LD) with Rich Entity Graph -->
   <script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Koamishin",
-      "alternateName": "Koamishin Collective",
-      "url": "https://koamishin.com",
-      "logo": "https://koamishin.com/koamishin-logo.png",
-      "sameAs": [
-        "https://github.com/koamishin",
-        "https://x.com"
-      ],
-      "description": "Koamishin is a growing collective of Laravel artisans, engineers, and designers focused on craft, clarity, and open-source work."
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://koamishin.com/#website",
+          "url": "https://koamishin.com/",
+          "name": "Koamishin",
+          "description": "Open Source Laravel Collective crafting high-performance starter kits, enterprise platforms, and tools.",
+          "publisher": {
+            "@id": "https://koamishin.com/#organization"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://koamishin.com/#organization",
+          "name": "Koamishin",
+          "alternateName": "Koamishin Collective",
+          "url": "https://koamishin.com",
+          "logo": "https://koamishin.com/koamishin-logo.png",
+          "sameAs": [
+            "https://github.com/koamishin",
+            "https://x.com"
+          ],
+          "description": "An open-source developer collective crafting refined Laravel starter kits, institutional platforms, and developer tooling."
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://koamishin.com/#opensinop",
+          "name": "OpenSinop",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://opensinop.koamishin.com/",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Bounded departmental finance orchestration on Circle Agent Wallets and Arc Testnet."
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://koamishin.com/#koamistarterkit",
+          "name": "KoamiStarterKit",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform",
+          "url": "https://github.com/koamishin/KoamiStarterKit",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Modern Laravel 12 + Vue 3 + Inertia.js + Tailwind CSS 4 starter kit."
+        }
+      ]
     }
   </script>
 
@@ -106,12 +158,6 @@ const imageURL = new URL(image, 'https://koamishin.com');
 
   <script is:inline>
     document.documentElement.classList.add("js");
-    window.__animOK = false;
-    window.addEventListener("load", function () {
-      setTimeout(function () {
-        if (!window.__animOK) document.documentElement.classList.remove("js");
-      }, 2500);
-    });
   </script>
 </head>
 <body>

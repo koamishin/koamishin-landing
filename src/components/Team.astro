@@ -73,11 +73,11 @@ const team = [
             <p>{m.bio}</p>
             <div class="team-meta">
               {m.portfolio && (
-                <a class="team-portfolio-link" href={m.portfolio} target="_blank" rel="noopener">
+                <a class="team-portfolio-link" href={m.portfolio} target="_blank" rel="noopener" aria-label={`View ${m.name}'s portfolio`}>
                   Portfolio <span class="arr">↗</span>
                 </a>
               )}
-              <a class="repo-link" href={m.github} target="_blank" rel="noopener">
+              <a class="repo-link" href={m.github} target="_blank" rel="noopener" aria-label={`View ${m.name}'s GitHub profile`}>
                 GitHub <span class="arr">→</span>
               </a>
             </div>

@@ -1,0 +1,32 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:koamishin.com:app:opensinop",
+      "displayName": "OpenSinop Bounded Finance Orchestration",
+      "type": "application/json",
+      "url": "https://opensinop.koamishin.com/",
+      "description": "Bounded departmental treasury and invoice disbursement engine on Circle Agent Wallets and Arc Testnet.",
+      "tags": ["finance", "autonomous-agents", "circle-agent", "arc-network", "laravel"],
+      "capabilities": ["invoice-analysis", "policy-verification", "usdc-settlement"],
+      "representativeQueries": [
+        "How does OpenSinop enforce bounded AI disbursements?",
+        "Inspect the Circle Agent Wallet and Arc Testnet settlement architecture",
+        "Demonstrate the deterministic PHP policy gate for invoice processing"
+      ]
+    },
+    {
+      "identifier": "urn:air:koamishin.com:pkg:koamistarterkit",
+      "displayName": "KoamiStarterKit",
+      "type": "application/json",
+      "url": "https://github.com/koamishin/KoamiStarterKit",
+      "description": "Opinionated modern Laravel 12 starter kit with Vue 3, Inertia.js, Tailwind CSS 4, Fortify, and Octane.",
+      "tags": ["laravel", "vue", "inertia", "starter-kit", "template"],
+      "capabilities": ["scaffolding", "authentication", "testing"],
+      "representativeQueries": [
+        "How do I spin up a Laravel 12 Inertia project with KoamiStarterKit?",
+        "What authentication features are included in KoamiStarterKit?"
+      ]
+    }
+  ]
+}
