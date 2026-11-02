@@ -59,10 +59,10 @@ const imageURL = new URL(image, 'https://koamishin.com');
   <!-- Google Fonts Preconnect & Async Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" media="print" onload="this.media='all'" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Spline+Sans+Mono:wght@500;600&family=Work+Sans:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Spline+Sans+Mono:wght@500;600&family=Work+Sans:wght@400;600&display=swap" media="print" onload="this.media='all'" />
   <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Spline+Sans+Mono:wght@400;500;600&family=Work+Sans:ital,wght@0,300..700;1,400..600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Spline+Sans+Mono:wght@500;600&family=Work+Sans:wght@400;600&display=swap" />
   </noscript>
 
   <!-- Structured Data (JSON-LD) with Rich Entity Graph -->
@@ -126,14 +126,14 @@ const imageURL = new URL(image, 'https://koamishin.com');
   </script>
 
   <!-- Matomo analytics (production only — keeps dev traffic out of the reports) -->
-  {import.meta.env.PROD && (
-    <script is:inline>
+  {import.meta.env.PROD && import.meta.env.PUBLIC_MATOMO_URL && (
+    <script is:inline define:vars={{ matomoUrl: import.meta.env.PUBLIC_MATOMO_URL }}>
       var _paq = window._paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function () {
-        var u = 'https://matomo.koamishin.com/';
+        var u = (matomoUrl || '').replace(/\/?$/, '/');
         _paq.push(['setTrackerUrl', u + 'matomo.php']);
         _paq.push(['setSiteId', '1']);
         var d = document,
@@ -148,7 +148,7 @@ const imageURL = new URL(image, 'https://koamishin.com');
       <p>
         <img
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://matomo.koamishin.com/matomo.php?idsite=1&amp;rec=1"
+          src={`${(import.meta.env.PUBLIC_MATOMO_URL || '').replace(/\/?$/, '/') + 'matomo.php?idsite=1&rec=1'}`}
           style="border: 0"
           alt=""
         />

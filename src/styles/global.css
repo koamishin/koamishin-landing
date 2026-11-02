@@ -782,10 +782,70 @@ a.team-photo:hover img { transform: scale(1.05); }
 
 /* ---------- Motion helpers + a11y ---------- */
 .js [data-reveal]:not(.hero):not(.hero *) { opacity: 0; }
-.hero, .hero *, .hero [data-reveal], .hero [data-words], .hero-title, .hero-deck { opacity: 1 !important; transform: none !important; }
+/* ---------- Hero Entrance Animation ---------- */
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0.1;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroWordRotate {
+  0% {
+    opacity: 0.1;
+    transform: translateY(18px) rotateX(-15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+.hero .badges {
+  animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-title .w-i {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: 0% 100%;
+  animation: heroWordRotate 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-title .w:nth-child(1) .w-i { animation-delay: 0.02s; }
+.hero-title .w:nth-child(2) .w-i { animation-delay: 0.05s; }
+.hero-title .w:nth-child(3) .w-i { animation-delay: 0.08s; }
+.hero-title .w:nth-child(4) .w-i { animation-delay: 0.11s; }
+.hero-title .w:nth-child(5) .w-i { animation-delay: 0.14s; }
+.hero-title .w:nth-child(6) .w-i { animation-delay: 0.17s; }
+
+.hero-deck {
+  animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+.hero-ctas {
+  animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+}
+
+.hero-proof {
+  animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.20s both;
+}
 .w { display: inline-block; }
 .w-i { display: inline-block; will-change: transform, opacity; }
 @media (prefers-reduced-motion: reduce) {
+  .hero .badges,
+  .hero-title .w-i,
+  .hero-deck,
+  .hero-ctas,
+  .hero-proof {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .js [data-reveal], .js [data-words] { opacity: 1; }
   html { scroll-behavior: auto; }
 }
