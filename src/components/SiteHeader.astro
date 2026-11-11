@@ -1,15 +1,22 @@
 ---
 ---
-<header class="site-header">
+<header class="site-header" data-header>
   <div class="wrap nav">
-    <a class="brand" href="/#top"><img src="/koamishin-logo.png" alt="Koamishin logo" class="brand-logo" width="34" height="34" />Koamishin<small>Collective</small></a>
-    <nav aria-label="Primary">
+    <a class="brand" href="/#top" aria-label="Koamishin Collective — home">
+      <img src="/koamishin-logo.png" alt="" class="brand-logo" width="36" height="36" />
+      <span class="brand-lock">
+        <span class="brand-name">Koamishin</span>
+        <span class="brand-sub">Collective</span>
+      </span>
+    </a>
+
+    <nav class="nav-menu" aria-label="Primary">
       <ul class="nav-links">
         <li><a href="/blog/koamishin-quickstart-in-two-minutes/">Quickstart</a></li>
         <li><a href="/#projects">Projects</a></li>
         <li><a href="/blog/">Journal</a></li>
         <li class="has-mega">
-          <button type="button" aria-expanded="false" aria-haspopup="true" data-mega>Learn <span class="caret">▾</span></button>
+          <button type="button" aria-expanded="false" aria-haspopup="true" data-mega>Learn <span class="caret" aria-hidden="true">▾</span></button>
           <div class="mega" role="menu">
             <div class="mega-grid">
               <div class="mega-col">
@@ -36,10 +43,6 @@
                   <li><a href="/#contact"><b>Discord</b><span>Chat with us</span></a></li>
                 </ul>
               </div>
-              <div class="mega-feature">
-                <div><b>New: KoamiStarterKit v2</b><br /><span>Laravel 12, Inertia, Tailwind 4 — production-ready.</span></div>
-                <a href="https://github.com/koamishin/KoamiStarterKit" target="_blank" rel="noopener" aria-label="Read KoamiStarterKit v2 documentation">Read the docs →</a>
-              </div>
             </div>
           </div>
         </li>
@@ -47,130 +50,339 @@
         <li><a href="/#testimonials">Stories</a></li>
       </ul>
     </nav>
+
     <div class="nav-cta">
-      <a class="btn btn-ghost" href="https://github.com/koamishin" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn btn-primary" href="/#join"><span class="btn-text-full">Join Collective</span><span class="btn-text-short">Join</span></a>
+      <a class="btn nav-gh" href="https://github.com/koamishin" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn nav-join" href="/#join"><span class="btn-text-full">Join Collective</span><span class="btn-text-short">Join</span></a>
+      <button class="burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
     </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" data-menu hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        <li><a href="/blog/koamishin-quickstart-in-two-minutes/">Quickstart</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/blog/">Journal</a></li>
+        <li><a href="/#team">Team</a></li>
+        <li><a href="/#testimonials">Stories</a></li>
+        <li><a href="https://github.com/koamishin" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <a class="btn nav-join mobile-join" href="/#join">Join Collective</a>
+    </nav>
   </div>
 </header>
 
 <style>
   .site-header {
-    width: 100%;
     position: sticky;
     top: 0;
     z-index: 200;
+    background: rgba(251, 246, 239, 0.88);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
   }
 
   .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1.5rem;
     height: 72px;
-    gap: 0.75rem;
     flex-wrap: nowrap;
   }
 
-  .brand {
-    flex-shrink: 0;
-    white-space: nowrap;
+  /* ---- Links ---- */
+  .nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
   }
-
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 0.15rem;
-    flex-shrink: 1;
+    gap: 0.25rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-
+  .nav-links > li {
+    position: relative;
+  }
   .nav-links > li > a,
   .nav-links > li > button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    padding: 0.45rem 0.75rem;
+    font-family: var(--body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     white-space: nowrap;
-    padding: 0.42rem 0.65rem;
-    font-size: 0.88rem;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > button:hover,
+  .nav-links li.open > button {
+    color: var(--ink);
+    background: rgba(60, 77, 61, 0.07);
+  }
+  .nav-links .caret {
+    font-size: 0.62rem;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+  .nav-links li.open .caret {
+    transform: rotate(180deg);
   }
 
+  /* ---- Dropdown ---- */
+  .mega {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    width: min(660px, 92vw);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow-md);
+    padding: 1.25rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+    z-index: 210;
+  }
+  .nav-links li:hover .mega,
+  .nav-links li:focus-within .mega,
+  .nav-links li.open .mega {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+  .mega-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.15rem;
+  }
+  .mega-col-title {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.55rem;
+  }
+  .mega-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mega-col li {
+    margin-bottom: 0.1rem;
+  }
+  .mega-col a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.06rem;
+    padding: 0.42rem 0.55rem;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+  }
+  .mega-col a:hover {
+    background: var(--cream-2);
+  }
+  .mega-col a b {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  .mega-col a span {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ---- Actions ---- */
   .nav-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     flex-shrink: 0;
     white-space: nowrap;
   }
-
   .nav-cta .btn {
-    padding: 0.5rem 1.15rem !important;
-    font-size: 0.86rem !important;
-    font-weight: 600 !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    border-radius: 999px !important;
+    padding: 0.52rem 1.15rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.25;
+    border-radius: 10px;
   }
-
-  .nav-cta .btn-primary {
-    padding: 0.5rem 1.25rem !important;
-    background: var(--coral) !important;
-    color: #fff !important;
-    box-shadow: 0 4px 14px -3px rgba(60, 77, 61, 0.4) !important;
+  .nav-gh {
+    background: transparent;
+    color: var(--ink-soft);
+    border-color: var(--line-strong);
   }
-
+  .nav-gh:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .nav-join {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .nav-join:hover {
+    background: var(--coral-dk);
+  }
   .btn-text-short {
     display: none;
   }
 
-  .btn-text-full {
-    display: inline;
+  /* ---- Mobile ---- */
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 11px 9px;
+    background: none;
+    border: 1px solid var(--line-strong);
+    border-radius: 9px;
+    cursor: pointer;
+  }
+  .burger span {
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: var(--ink);
+    transition: transform 0.2s ease, opacity 0.15s ease;
+  }
+  .site-header.menu-open .burger span:nth-child(1) {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+  .site-header.menu-open .burger span:nth-child(2) {
+    transform: translateY(-3.25px) rotate(-45deg);
   }
 
-  @media (max-width: 1120px) {
-    .nav-links > li > a,
-    .nav-links > li > button {
-      padding: 0.38rem 0.5rem;
-      font-size: 0.82rem;
-    }
-    .brand small {
+  .mobile-menu {
+    display: none;
+    border-top: 1px solid var(--line);
+    background: var(--card);
+  }
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem var(--gutter) 1.35rem;
+  }
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mobile-menu li a {
+    display: block;
+    padding: 0.7rem 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu li:last-child a {
+    border-bottom: none;
+  }
+  .mobile-join {
+    margin-top: 1rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 1180px) {
+    .nav-menu {
       display: none;
     }
-    .nav-cta .btn {
-      padding: 0.45rem 0.95rem !important;
-      font-size: 0.82rem !important;
+    .burger {
+      display: flex;
+    }
+    .site-header.menu-open .mobile-menu {
+      display: block;
     }
   }
 
-  @media (max-width: 980px) {
-    .btn-text-full {
-      display: none;
-    }
-    .btn-text-short {
-      display: inline;
-    }
-    .nav-links > li > a,
-    .nav-links > li > button {
-      padding: 0.32rem 0.4rem;
-      font-size: 0.78rem;
-    }
-  }
-
-  @media (max-width: 860px) {
-    .nav-links {
-      display: none;
-    }
+  @media (max-width: 560px) {
     .nav {
       height: 64px;
     }
-  }
-
-  @media (max-width: 480px) {
-    .nav-cta .btn-ghost {
+    .nav-gh {
       display: none;
     }
-    .nav-cta .btn-primary {
-      padding: 0.42rem 0.85rem !important;
-      font-size: 0.78rem !important;
+    .nav-join .btn-text-full {
+      display: none;
+    }
+    .nav-join .btn-text-short {
+      display: inline;
     }
   }
 </style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  if (header) {
+    // Mobile menu
+    const toggle = header.querySelector('[data-menu-toggle]');
+    const menu = header.querySelector('[data-menu]');
+    const setMenu = (open: boolean) => {
+      header.classList.toggle('menu-open', open);
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      if (menu) menu.toggleAttribute('hidden', !open);
+    };
+    toggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenu(!header.classList.contains('menu-open'));
+    });
+    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+    // Learn dropdown (click toggle; CSS also opens on hover)
+    document.querySelectorAll('[data-mega]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const li = btn.closest('li');
+        const open = li?.classList.toggle('open') ?? false;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+
+    const closeMega = () => {
+      document.querySelectorAll('.nav-links li.open').forEach((li) => {
+        li.classList.remove('open');
+        li.querySelector('[data-mega]')?.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    document.addEventListener('click', () => {
+      closeMega();
+      setMenu(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMega();
+        setMenu(false);
+      }
+    });
+  }
+</script>

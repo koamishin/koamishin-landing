@@ -1,33 +1,191 @@
 ---
 ---
 <section class="hero" id="hero">
-  <div class="wrap hero-center">
-    <div class="badges">
-      <span class="badge coral">Open Source</span>
-      <span class="badge teal">Laravel 12 &amp; 13</span>
-      <span class="badge gold">Full-Stack Ecosystem</span>
-    </div>
-    <h1 class="hero-title" aria-label="Laravel artisans, working in the open.">
-      <span class="w" aria-hidden="true"><span class="w-i">Laravel</span></span>
-      <span class="w" aria-hidden="true"><span class="w-i"><em>artisans</em>,</span></span>
-      <span class="w" aria-hidden="true"><span class="w-i">working</span></span>
-      <span class="w" aria-hidden="true"><span class="w-i">in</span></span>
-      <span class="w" aria-hidden="true"><span class="w-i">the</span></span>
-      <span class="w" aria-hidden="true"><span class="w-i">open.</span></span>
-    </h1>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Open source <i>·</i> Laravel 12 &amp; 13 <i>·</i> Full-stack ecosystem</p>
+
+    <h1 class="hero-title">Laravel artisans,<br />working <em>in the open</em>.</h1>
+
     <p class="hero-deck">Koamishin is a growing collective of Laravel artisans — engineers and designers devoted to craft, clarity, and open-source work. We learn in public, hold a high bar, and keep the workshop doors open.</p>
+
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="#projects">Explore the Projects →</a>
+      <a class="btn btn-primary" href="#projects">Explore the Projects</a>
       <a class="btn btn-ghost" href="/blog/koamishin-quickstart-in-two-minutes/">Quick Start Guide</a>
     </div>
+
     <div class="hero-proof">
       <div class="avatars" aria-hidden="true">
-        <img src="/team/Rui-Zen-34.png" alt="Louis" width="34" height="34" loading="eager" decoding="async" />
-        <img src="/team/SorenOutis-34.png" alt="Ortiz Bugtong Jr" width="34" height="34" loading="eager" decoding="async" />
-        <img src="/team/Jaymark-34.png" alt="Jaymark" width="34" height="34" loading="eager" decoding="async" />
-        <img src="/team/Angelika-34.png" alt="Angelika" width="34" height="34" loading="eager" decoding="async" />
+        <img src="/team/Rui-Zen-34.png" alt="" width="32" height="32" loading="eager" decoding="async" />
+        <img src="/team/SorenOutis-34.png" alt="" width="32" height="32" loading="eager" decoding="async" />
+        <img src="/team/Jaymark-34.png" alt="" width="32" height="32" loading="eager" decoding="async" />
+        <img src="/team/Angelika-34.png" alt="" width="32" height="32" loading="eager" decoding="async" />
       </div>
-      <p><b>growing Laravel collective</b> · <b>7 open-source systems</b> · <b>every repo free to fork</b></p>
+      <p>growing Laravel collective <i>·</i> 7 open-source systems <i>·</i> every repo free to fork</p>
     </div>
   </div>
 </section>
+
+<style>
+  .hero {
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(3.25rem, 7vw, 5.75rem);
+    text-align: center;
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow i {
+    font-style: normal;
+    color: rgba(201, 162, 39, 0.9);
+    margin: 0 0.35rem;
+  }
+
+  .hero-title {
+    margin-top: 1.4rem;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .hero-title em {
+    position: relative;
+    isolation: isolate;
+    font-style: normal;
+  }
+  .hero-title em::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: -0.05em;
+    right: -0.05em;
+    bottom: 0.02em;
+    height: 0.34em;
+    background: linear-gradient(100deg, rgba(201, 162, 39, 0.62), rgba(201, 162, 39, 0.38));
+    border-radius: 0.18em 0.3em 0.22em 0.28em;
+    transform: rotate(-0.8deg) skewX(-8deg);
+  }
+
+  .hero-deck {
+    margin-top: 1.5rem;
+    font-size: 1.13rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2.1rem;
+  }
+
+  .hero-proof {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 2.4rem;
+  }
+  .hero-proof .avatars {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .hero-proof .avatars img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--cream);
+    object-fit: cover;
+    display: block;
+    margin-left: -8px;
+  }
+  .hero-proof .avatars img:first-child {
+    margin-left: 0;
+  }
+  .hero-proof p {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+  .hero-proof i {
+    font-style: normal;
+    color: var(--line-strong);
+    margin: 0 0.3rem;
+  }
+
+  /* subtle entrance */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .eyebrow { animation: heroFadeUp 0.5s ease both; }
+  .hero-title { animation: heroFadeUp 0.6s ease 0.06s both; }
+  .hero-deck { animation: heroFadeUp 0.6s ease 0.14s both; }
+  .hero-ctas { animation: heroFadeUp 0.6s ease 0.22s both; }
+  .hero-proof { animation: heroFadeUp 0.6s ease 0.3s both; }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 2.9rem 0 2.6rem;
+    }
+    .hero-title {
+      font-size: clamp(2.15rem, 9vw, 2.85rem);
+      line-height: 1.12;
+    }
+    .hero-deck {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 1.15rem;
+    }
+    .hero-ctas {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 1.8rem;
+    }
+    .hero-ctas .btn {
+      width: 100%;
+    }
+    .hero-proof {
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .hero-proof p {
+      text-align: center;
+      line-height: 1.9;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow,
+    .hero-title,
+    .hero-deck,
+    .hero-ctas,
+    .hero-proof {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

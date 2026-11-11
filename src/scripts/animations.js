@@ -29,24 +29,6 @@ import { animate } from 'animejs';
       revealEl(el, { opacity: [0, 1], translateY: [20, 0], duration: 600, ease: 'outQuad' });
     });
 
-    // ---- Education mega menu (click toggle; CSS handles hover) ----
-    document.querySelectorAll('[data-mega]').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var li = btn.closest('li');
-        var open = li.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    });
-
-    document.addEventListener('click', function () {
-      document.querySelectorAll('.nav-links li.open').forEach(function (li) {
-        li.classList.remove('open');
-        var b = li.querySelector('[data-mega]');
-        if (b) b.setAttribute('aria-expanded', 'false');
-      });
-    });
-
     // ---- Footer language control ----
     document.querySelectorAll('.lang-control').forEach(function (group) {
       group.querySelectorAll('button').forEach(function (btn) {
