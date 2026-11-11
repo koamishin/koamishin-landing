@@ -13,6 +13,7 @@ const projects = [
     stack: ['Laravel 12', 'Vue 3', 'Inertia.js', 'Tailwind 4', 'Octane'],
     license: 'MIT',
     stars: 6,
+    layout: 'feature',
   },
   {
     name: 'koakademy',
@@ -55,6 +56,7 @@ const projects = [
     stack: ['Vue 3', 'Laravel', 'MySQL', 'Tailwind'],
     license: 'MIT',
     stars: 1,
+    layout: 'wide',
   },
   {
     name: 'konexus',
@@ -97,7 +99,15 @@ const projects = [
     stack: ['TypeScript', 'Laravel', 'Vue 3', 'SaaS'],
     license: 'MIT',
     stars: 1,
+    layout: 'band',
   },
+];
+
+const categories = [
+  { key: 'all', label: 'All Systems', count: projects.length },
+  { key: 'starter-kits', label: 'Starter Kits', count: projects.filter((p) => p.category === 'starter-kits').length },
+  { key: 'platforms', label: 'Platforms & ERP', count: projects.filter((p) => p.category === 'platforms').length },
+  { key: 'tools', label: 'Tools & SaaS', count: projects.filter((p) => p.category === 'tools').length },
 ];
 ---
 <section class="section" id="projects">
@@ -108,284 +118,663 @@ const projects = [
       <p class="lede">A curated directory of frameworks, enterprise platforms, and tools built by the collective. Clean code, tested architecture, and open on GitHub.</p>
     </div>
 
-    <!-- Category Filters & Live Search Bar -->
-    <div class="directory-toolbar" data-reveal>
-      <div class="directory-filter-bar">
-        <button type="button" class="dir-tab active" data-filter="all">All Systems <span class="tab-count">7</span></button>
-        <button type="button" class="dir-tab" data-filter="starter-kits">Starter Kits <span class="tab-count">1</span></button>
-        <button type="button" class="dir-tab" data-filter="platforms">Platforms &amp; ERP <span class="tab-count">4</span></button>
-        <button type="button" class="dir-tab" data-filter="tools">Tools &amp; SaaS <span class="tab-count">2</span></button>
+    <!-- Filters & live search -->
+    <div class="bento-toolbar" data-reveal>
+      <div class="bento-tabs" role="group" aria-label="Filter projects by category">
+        {categories.map((c) => (
+          <button
+            type="button"
+            class:list={['bento-tab', { active: c.key === 'all' }]}
+            data-filter={c.key}
+            aria-pressed={c.key === 'all' ? 'true' : 'false'}
+          >
+            {c.label}
+            <span class="tab-count">{c.count}</span>
+          </button>
+        ))}
       </div>
 
-      <div class="dir-search-wrap">
-        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <div class="bento-search">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <input
           type="search"
-          id="dir-search-input"
-          class="dir-search-input"
-          placeholder="Filter by stack or keyword (e.g. React, Vue, Octane, POS)..."
+          id="bento-search-input"
+          class="bento-search-input"
+          placeholder="Filter by stack or keyword…"
           autocomplete="off"
         />
-        <button type="button" id="dir-search-clear" class="dir-search-clear" aria-label="Clear search" style="display:none;">×</button>
+        <button type="button" id="bento-search-clear" class="bento-search-clear" aria-label="Clear search" hidden>×</button>
       </div>
     </div>
 
-    <!-- Directory Listing -->
-    <div class="directory-list" id="directory-list" data-reveal>
-      {projects.map((p) => (
+    <!-- Bento grid -->
+    <div class="bento" id="bento-grid" data-reveal>
+      {projects.map((p, i) => (
         <article
-          class="dir-row"
+          class:list={['bento-card', p.layout && `bento-card--${p.layout}`]}
           data-category={p.category}
-          data-search={`${p.name} ${p.categoryLabel} ${p.desc} ${p.stack.join(' ')}`.toLowerCase()}
+          data-search={`${p.name} ${p.categoryLabel} ${p.desc} ${p.stack.join(' ')} ${p.license}`.toLowerCase()}
         >
-          <!-- Left: Core Info -->
-          <div class="dir-main">
-            <div class="dir-info">
-              <div class="dir-title-row">
-                <a class="dir-name" href={p.url} target="_blank" rel="noopener">
-                  {p.name}
-                </a>
-                <span class="dir-badge dir-category-badge">{p.categoryLabel}</span>
-                <span class={`dir-badge dir-status-badge ${p.status === 'Production Ready' ? 'ready' : ''}`}>
-                  <span class="status-dot"></span>
-                  {p.status}
-                </span>
-              </div>
-              <p class="dir-desc">{p.desc}</p>
-
-              <div class="dir-tech-row">
-                {p.stack.map((s) => (
-                  <span class="dir-pill">{s}</span>
-                ))}
-              </div>
-            </div>
+          <div class="bento-head">
+            <span class="bento-cat">{p.categoryLabel}</span>
+            <span class:list={['bento-status', { ready: p.status === 'Production Ready' }]}>
+              <i class="dot" aria-hidden="true"></i>{p.status}
+            </span>
           </div>
 
-          <!-- Right: Meta & Actions -->
-          <div class="dir-actions">
-            <div class="dir-stats">
-              <span class="dir-stars" title={`${p.stars} stars on GitHub`}>★ {p.stars}</span>
-              <span class="dir-license">{p.license}</span>
-            </div>
-            
-            <div class="dir-buttons">
+          <h3 class="bento-name">
+            <a href={p.url} target="_blank" rel="noopener">{p.name}</a>
+          </h3>
+
+          <p class="bento-desc">{p.desc}</p>
+
+          <ul class="bento-stack" aria-label={`${p.name} stack`}>
+            {p.stack.map((s) => <li>{s}</li>)}
+          </ul>
+
+          <div class="bento-foot">
+            <span class="bento-meta">
+              <span class="stars" title={`${p.stars} stars on GitHub`}>★ {p.stars}</span>
+              <span class="sep" aria-hidden="true">·</span>
+              <span>{p.license}</span>
+              <span class="sep" aria-hidden="true">·</span>
+              <span class="ver">{p.version}</span>
+            </span>
+            <span class="bento-links">
               {p.docs && (
-                <a class="dir-btn dir-btn-docs" href={p.docs} target="_blank" rel="noopener" aria-label={`Read ${p.name} documentation`}>
-                  Docs ↗
+                <a class="bento-link" href={p.docs} target="_blank" rel="noopener" aria-label={`Read ${p.name} documentation`}>
+                  Docs
                 </a>
               )}
-              <a class="dir-btn dir-btn-gh" href={p.url} target="_blank" rel="noopener" aria-label={`View ${p.name} on GitHub`}>
-                GitHub <span class="arr">→</span>
+              <a class="bento-link bento-link--gh" href={p.url} target="_blank" rel="noopener" aria-label={`View ${p.name} on GitHub`}>
+                GitHub <span class="arr" aria-hidden="true">→</span>
               </a>
-            </div>
+            </span>
           </div>
         </article>
       ))}
 
-      <!-- Empty State -->
-      <div class="dir-empty-state" id="dir-empty-state" style="display: none;">
-        <div class="empty-icon">🔍</div>
+      <div class="bento-empty" id="bento-empty" hidden>
         <p class="empty-title">No matching open-source systems found</p>
-        <p class="empty-sub">Try searching for another technology (like <em>Vue</em>, <em>Laravel</em>, or <em>Inertia</em>) or reset your filter.</p>
-        <button type="button" class="btn btn-ghost" id="dir-reset-btn">Reset Search &amp; Filters</button>
+        <p class="empty-sub">Try another technology — <em>Vue</em>, <em>Laravel</em>, <em>Inertia</em> — or reset the filter.</p>
+        <button type="button" class="btn btn-ghost" id="bento-reset">Reset search &amp; filters</button>
       </div>
     </div>
 
-    <!-- Directory Footer Quote / Explore Link -->
-    <div class="directory-footer" data-reveal>
-      <p>All repositories are hosted under the official <b><a href="https://github.com/koamishin" target="_blank" rel="noopener">@koamishin</a></b> organization.</p>
-      <a class="btn btn-ghost" href="https://github.com/koamishin" target="_blank" rel="noopener">
-        View all repositories on GitHub →
+    <div class="bento-note" data-reveal>
+      <p>All repositories live under the official <a href="https://github.com/koamishin" target="_blank" rel="noopener">@koamishin</a> organization.</p>
+      <a class="bento-note-link" href="https://github.com/koamishin" target="_blank" rel="noopener">
+        View all repositories <span class="arr" aria-hidden="true">→</span>
       </a>
     </div>
   </div>
 </section>
 
 <style>
-  .directory-toolbar {
+  /* ---------- Toolbar ---------- */
+  .bento-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.8rem;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
   }
 
-  .directory-toolbar .directory-filter-bar {
-    margin-bottom: 0;
+  .bento-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 100%;
+  }
+  .bento-tabs::-webkit-scrollbar {
+    display: none;
   }
 
-  .dir-search-wrap {
+  .bento-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    padding: 0.5rem 0.7rem;
+    font-family: var(--body);
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color 0.16s ease, border-color 0.16s ease;
+  }
+  .bento-tab:hover {
+    color: var(--ink);
+  }
+  .bento-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .tab-count {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .bento-tab.active .tab-count {
+    color: var(--ink);
+  }
+
+  .bento-search {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--cream);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-pill);
-    padding: 0.35rem 0.85rem;
-    position: relative;
-    transition: all 0.2s ease;
-    min-width: 280px;
+    min-width: 240px;
+    max-width: 320px;
     flex: 1;
-    max-width: 380px;
+    padding: 0.45rem 0.85rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    transition: border-color 0.16s ease;
   }
-
-  .dir-search-wrap:focus-within {
-    border-color: var(--ink);
-    background: #fff;
-    box-shadow: 0 4px 14px -4px rgba(48, 67, 51, 0.15);
+  .bento-search:focus-within {
+    border-color: var(--line-strong);
   }
-
   .search-icon {
     color: var(--muted);
     flex-shrink: 0;
   }
-
-  .dir-search-input {
-    border: none;
-    background: transparent;
-    font-family: var(--sans);
-    font-size: 0.82rem;
-    color: var(--ink);
-    outline: none;
+  .bento-search-input {
     width: 100%;
-  }
-
-  .dir-search-input::placeholder {
-    color: var(--muted);
-    font-size: 0.78rem;
-  }
-
-  .dir-search-clear {
-    background: none;
     border: none;
-    font-size: 1.1rem;
-    line-height: 1;
-    color: var(--muted);
-    cursor: pointer;
-    padding: 0 0.2rem;
+    outline: none;
+    background: transparent;
+    font-family: var(--body);
+    font-size: 0.84rem;
+    color: var(--ink);
   }
-
-  .dir-search-clear:hover {
+  .bento-search-input::placeholder {
+    color: var(--muted);
+  }
+  .bento-search-clear {
+    border: none;
+    background: none;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.15rem;
+  }
+  .bento-search-clear:hover {
     color: var(--ink);
   }
 
-  .dir-empty-state {
+  /* ---------- Bento grid ---------- */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+    grid-auto-flow: dense;
+  }
+
+  .bento-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.35rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .bento-card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+  }
+  .bento-card.is-hidden {
+    display: none;
+  }
+
+  /* Feature tile: wide dark anchor */
+  .bento-card--feature {
+    grid-column: span 2;
+    padding: 1.6rem;
+    background: var(--night);
+    border-color: var(--night);
+    color: var(--cream);
+  }
+  .bento-card--feature:hover {
+    border-color: var(--night-2);
+    box-shadow: 0 20px 40px -24px rgba(48, 67, 51, 0.55);
+  }
+
+  /* Mid-grid wide tile */
+  .bento-card--wide {
+    grid-column: span 2;
+  }
+
+  /* Closing full-width band */
+  .bento-card--band {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    grid-template-areas:
+      "head head"
+      "name desc"
+      "stack desc"
+      "foot foot";
+    column-gap: 2.5rem;
+    row-gap: 0.5rem;
+    align-items: start;
+    padding: 1.5rem 1.6rem;
+  }
+  .bento-card--band .bento-head { grid-area: head; }
+  .bento-card--band .bento-name { grid-area: name; font-size: 1.5rem; }
+  .bento-card--band .bento-stack { grid-area: stack; align-self: start; }
+  .bento-card--band .bento-desc { grid-area: desc; max-width: 62ch; flex: none; }
+  .bento-card--band .bento-foot { grid-area: foot; margin-top: 0.35rem; }
+
+  .bento-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+  .bento-cat {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .bento-card--feature .bento-cat {
+    color: rgba(251, 246, 239, 0.62);
+  }
+
+  .bento-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .bento-status .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--line-strong);
+  }
+  .bento-status.ready {
+    color: var(--ink-soft);
+  }
+  .bento-status.ready .dot {
+    background: var(--brand-5);
+  }
+  .bento-card--feature .bento-status {
+    color: rgba(251, 246, 239, 0.62);
+  }
+  .bento-card--feature .bento-status .dot {
+    background: var(--gold, #c9a227);
+  }
+
+  .bento-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.28rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .bento-name a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .bento-card--feature .bento-name {
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+    letter-spacing: -0.025em;
+  }
+
+  .bento-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--muted);
+    flex: 1;
+  }
+  .bento-card--feature .bento-desc {
+    font-size: 0.95rem;
+    color: rgba(251, 246, 239, 0.78);
+    max-width: 46ch;
+  }
+
+  .bento-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bento-stack li {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    background: rgba(60, 77, 61, 0.07);
+    border-radius: 999px;
+    padding: 0.22rem 0.55rem;
+    white-space: nowrap;
+  }
+  .bento-card--feature .bento-stack li {
+    color: rgba(251, 246, 239, 0.82);
+    background: rgba(251, 246, 239, 0.12);
+  }
+
+  .bento-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.15rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+  .bento-card--feature .bento-foot {
+    border-top-color: rgba(251, 246, 239, 0.16);
+    padding-top: 1rem;
+    margin-top: 0.4rem;
+  }
+
+  .bento-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .bento-meta .stars {
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .bento-meta .sep {
+    color: var(--line-strong);
+  }
+  .bento-card--feature .bento-meta,
+  .bento-card--feature .bento-meta .stars {
+    color: rgba(251, 246, 239, 0.7);
+  }
+  .bento-card--feature .bento-meta .stars {
+    color: rgba(251, 246, 239, 0.95);
+  }
+  .bento-card--feature .bento-meta .sep {
+    color: rgba(251, 246, 239, 0.35);
+  }
+
+  .bento-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .bento-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    transition: color 0.16s ease, background 0.16s ease;
+  }
+  .bento-link:hover {
+    color: var(--ink);
+    background: rgba(60, 77, 61, 0.07);
+  }
+  .bento-link--gh {
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+  }
+  .bento-link--gh:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--cream);
+  }
+  .bento-link .arr {
+    transition: transform 0.16s ease;
+  }
+  .bento-link--gh:hover .arr {
+    transform: translateX(3px);
+  }
+
+  .bento-card--feature .bento-link {
+    color: rgba(251, 246, 239, 0.72);
+  }
+  .bento-card--feature .bento-link:hover {
+    color: var(--cream);
+    background: rgba(251, 246, 239, 0.12);
+  }
+  .bento-card--feature .bento-link--gh {
+    color: var(--night);
+    background: var(--cream);
+    border-color: var(--cream);
+  }
+  .bento-card--feature .bento-link--gh:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--night);
+  }
+
+  /* ---------- Empty state ---------- */
+  .bento-empty {
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 3.5rem 1.5rem;
-    background: rgba(248, 237, 220, 0.4);
-    border: 1px dashed var(--line);
-    border-radius: 16px;
-    margin-top: 1rem;
+    padding: 3rem 1.5rem;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
   }
-
-  .empty-icon {
-    font-size: 2rem;
-    margin-bottom: 0.6rem;
+  .bento-empty[hidden] {
+    display: none;
   }
-
   .empty-title {
     font-family: var(--display);
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--ink);
-    margin: 0 0 0.4rem;
   }
-
   .empty-sub {
-    font-size: 0.85rem;
+    margin: 0.4rem 0 1.1rem;
+    font-size: 0.88rem;
     color: var(--muted);
-    margin: 0 0 1.2rem;
   }
 
-  @media (max-width: 768px) {
-    .directory-toolbar {
+  /* ---------- Footer note ---------- */
+  .bento-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.6rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--line);
+  }
+  .bento-note p {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .bento-note p a {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .bento-note-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .bento-note-link:hover {
+    color: var(--ink);
+  }
+  .bento-note-link .arr {
+    transition: transform 0.16s ease;
+  }
+  .bento-note-link:hover .arr {
+    transform: translateX(3px);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1020px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .bento-card--feature,
+    .bento-card--wide,
+    .bento-card--band {
+      grid-column: span 2;
+    }
+    .bento-card--band {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "head"
+        "name"
+        "desc"
+        "stack"
+        "foot";
+      row-gap: 0.6rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .bento {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .bento-card--feature,
+    .bento-card--wide,
+    .bento-card--band {
+      grid-column: span 1;
+    }
+    .bento-card {
+      padding: 1.2rem;
+    }
+    .bento-card--band {
+      padding: 1.2rem;
+    }
+    .bento-card--band .bento-name {
+      font-size: 1.3rem;
+    }
+    .bento-name {
+      font-size: 1.2rem;
+    }
+    .bento-card--feature .bento-name {
+      font-size: 1.55rem;
+    }
+    .bento-toolbar {
       flex-direction: column;
       align-items: stretch;
     }
-    .dir-search-wrap {
+    .bento-tabs {
+      flex-wrap: wrap;
+      overflow-x: visible;
+      row-gap: 0.2rem;
+    }
+    .bento-search {
       max-width: 100%;
-      min-width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bento-card,
+    .bento-link,
+    .bento-note-link .arr {
+      transition: none !important;
+    }
+    .bento-card:hover {
+      transform: none;
     }
   }
 </style>
 
 <script>
-  // Combined category & live search filter
-  const filterButtons = document.querySelectorAll<HTMLButtonElement>('.dir-tab');
-  const rows = document.querySelectorAll<HTMLElement>('.dir-row');
-  const searchInput = document.getElementById('dir-search-input') as HTMLInputElement | null;
-  const searchClear = document.getElementById('dir-search-clear') as HTMLButtonElement | null;
-  const emptyState = document.getElementById('dir-empty-state') as HTMLElement | null;
-  const resetBtn = document.getElementById('dir-reset-btn') as HTMLButtonElement | null;
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.bento-tab');
+  const cards = document.querySelectorAll<HTMLElement>('.bento-card');
+  const input = document.getElementById('bento-search-input') as HTMLInputElement | null;
+  const clear = document.getElementById('bento-search-clear') as HTMLButtonElement | null;
+  const empty = document.getElementById('bento-empty') as HTMLElement | null;
+  const reset = document.getElementById('bento-reset') as HTMLButtonElement | null;
 
-  let currentCategory = 'all';
-  let currentSearchQuery = '';
+  let category = 'all';
+  let query = '';
 
-  function applyFilters() {
-    let visibleCount = 0;
-
-    rows.forEach((row) => {
-      const category = row.dataset.category || '';
-      const searchableText = row.dataset.search || '';
-
-      const matchesCategory = currentCategory === 'all' || category === currentCategory;
-      const matchesSearch = !currentSearchQuery || searchableText.includes(currentSearchQuery);
-
-      if (matchesCategory && matchesSearch) {
-        row.style.display = 'flex';
-        row.style.opacity = '1';
-        visibleCount++;
-      } else {
-        row.style.display = 'none';
-        row.style.opacity = '0';
-      }
+  function apply() {
+    let visible = 0;
+    cards.forEach((card) => {
+      const matchesCat = category === 'all' || card.dataset.category === category;
+      const matchesQuery = !query || (card.dataset.search || '').includes(query);
+      const show = matchesCat && matchesQuery;
+      card.classList.toggle('is-hidden', !show);
+      if (show) visible++;
     });
-
-    if (emptyState) {
-      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
+    if (empty) empty.hidden = visible !== 0;
   }
 
-  filterButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      currentCategory = btn.dataset.filter || 'all';
-      filterButtons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilters();
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      category = tab.dataset.filter || 'all';
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-pressed', String(on));
+      });
+      apply();
     });
   });
 
-  searchInput?.addEventListener('input', () => {
-    currentSearchQuery = searchInput.value.trim().toLowerCase();
-    if (searchClear) {
-      searchClear.style.display = currentSearchQuery ? 'inline-block' : 'none';
-    }
-    applyFilters();
+  input?.addEventListener('input', () => {
+    query = input.value.trim().toLowerCase();
+    if (clear) clear.hidden = !query;
+    apply();
   });
 
-  searchClear?.addEventListener('click', () => {
-    if (searchInput) {
-      searchInput.value = '';
-      currentSearchQuery = '';
-      searchClear.style.display = 'none';
-      searchInput.focus();
-      applyFilters();
-    }
+  clear?.addEventListener('click', () => {
+    if (!input) return;
+    input.value = '';
+    query = '';
+    clear.hidden = true;
+    input.focus();
+    apply();
   });
 
-  resetBtn?.addEventListener('click', () => {
-    currentCategory = 'all';
-    currentSearchQuery = '';
-    if (searchInput) searchInput.value = '';
-    if (searchClear) searchClear.style.display = 'none';
-    filterButtons.forEach((b) => {
-      if (b.dataset.filter === 'all') b.classList.add('active');
-      else b.classList.remove('active');
+  reset?.addEventListener('click', () => {
+    category = 'all';
+    query = '';
+    if (input) input.value = '';
+    if (clear) clear.hidden = true;
+    tabs.forEach((t) => {
+      const on = t.dataset.filter === 'all';
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-pressed', String(on));
     });
-    applyFilters();
+    apply();
   });
 </script>
