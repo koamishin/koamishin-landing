@@ -28,16 +28,6 @@ import { animate } from 'animejs';
       if (el.closest('.hero') || el.closest('.marquee')) return;
       revealEl(el, { opacity: [0, 1], translateY: [20, 0], duration: 600, ease: 'outQuad' });
     });
-
-    // ---- Footer language control ----
-    document.querySelectorAll('.lang-control').forEach(function (group) {
-      group.querySelectorAll('button').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          group.querySelectorAll('button').forEach(function (b) { b.classList.remove('on'); });
-          btn.classList.add('on');
-        });
-      });
-    });
   }
 
   if (document.readyState === 'loading') {

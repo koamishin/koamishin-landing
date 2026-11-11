@@ -280,7 +280,6 @@ img.lb-ava { display: block; object-fit: cover; }
 .lb-contrib { text-align: right; }
 .lb-contrib b { font-family: var(--display); font-weight: 700; font-size: 1.2rem; display: block; }
 .lb-contrib span { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(251,246,239,0.85); }
-.footer-base a { color: rgba(251,246,239,0.85); }
 .lb-foot { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; justify-content: space-between; }
 .lb-foot p { font-size: 0.88rem; color: rgba(251,246,239,0.6); }
 
@@ -392,33 +391,6 @@ a.team-photo:hover img { transform: scale(1.05); }
 .cta-band .btn-ghost { background: #fff; color: var(--ink); border-color: transparent; }
 .cta-band .btn-dark { background: var(--night); color: #fff; }
 
-/* ---------- Footer (language + social controls) ---------- */
-.site-footer { background: var(--night); color: var(--cream); margin-top: 5rem; }
-.footer-top { padding: 3.5rem 0 2rem; display: grid; grid-template-columns: 1.3fr 2fr; gap: 3rem; }
-.footer-brand p { margin-top: 0.9rem; font-size: 0.95rem; color: rgba(251,246,239,0.6); max-width: 34ch; }
-.footer-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.footer-cols h6, .footer-cols .footer-col-title { font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #f5d565; margin-bottom: 0.9rem; display: block; }
-.footer-cols ul { list-style: none; }
-.footer-cols li { margin-bottom: 0.55rem; }
-.footer-cols a { font-size: 0.92rem; color: rgba(251,246,239,0.8); }
-.footer-cols a:hover { color: var(--cream); text-decoration: underline; }
-.footer-controls {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
-  padding: 1.5rem 0; border-top: 1px solid rgba(251,246,239,0.12);
-}
-.lang-control { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(251,246,239,0.06); border: 1px solid rgba(251,246,239,0.14); border-radius: var(--radius-pill); padding: 0.35rem 0.5rem; }
-.lang-control button { background: none; border: none; cursor: pointer; font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: rgba(251,246,239,0.65); padding: 0.3rem 0.75rem; border-radius: var(--radius-pill); transition: all 0.18s; }
-.lang-control button.on { background: var(--coral); color: #fff; }
-.lang-control button:hover:not(.on) { color: var(--cream); }
-.social-row { display: flex; gap: 0.6rem; }
-.social-btn {
-  display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(251,246,239,0.06); border: 1px solid rgba(251,246,239,0.14); color: var(--cream);
-  font-family: var(--mono); font-size: 0.66rem; font-weight: 700; transition: all 0.18s;
-}
-.social-btn:hover { background: var(--coral); border-color: var(--coral); transform: translateY(-3px); }
-.footer-base { padding: 1.4rem 0 2.2rem; border-top: 1px solid rgba(251,246,239,0.12); display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(251,246,239,0.92); }
-
 /* ---------- Motion helpers + a11y ---------- */
 .js [data-reveal]:not(.hero):not(.hero *) { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
@@ -431,7 +403,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
 @media (max-width: 980px) {
   .feature-cards, .t-grid { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-  .footer-top { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 860px) {
@@ -503,46 +474,4 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
     max-width: 300px;
   }
 
-  /* Footer */
-  .site-footer {
-    margin-top: 3.5rem;
-  }
-  .footer-top {
-    padding: 2.5rem 0 1.5rem;
-    gap: 2rem;
-  }
-  .footer-cols {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.6rem 1rem;
-  }
-  .footer-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    padding: 1.2rem 0;
-  }
-  .lang-control {
-    justify-content: center;
-    width: 100%;
-  }
-  .social-row {
-    justify-content: center;
-    width: 100%;
-  }
-  .footer-base {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-    padding: 1.2rem 0 2rem;
-  }
 }
-
-@media (max-width: 420px) {
-  .footer-cols {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-.footer-base span, .footer-base a { color: rgba(251,246,239,0.92) !important; }

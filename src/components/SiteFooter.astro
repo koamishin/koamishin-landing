@@ -1,74 +1,253 @@
 ---
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: 'Explore',
+    links: [
+      { label: 'Projects', href: '/#projects' },
+      { label: 'Journal', href: '/blog/' },
+      { label: 'Team', href: '/#team' },
+      { label: 'Stories', href: '/#testimonials' },
+    ],
+  },
+  {
+    title: 'Repositories',
+    links: [
+      { label: 'KoamiStarterKit', href: 'https://github.com/koamishin/KoamiStarterKit', external: true },
+      { label: 'OpenSinop', href: 'https://opensinop.koamishin.com/', external: true },
+      { label: 'All repositories', href: 'https://github.com/koamishin', external: true },
+    ],
+  },
+  {
+    title: 'Social',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/koamishin', external: true },
+      { label: 'X', href: 'https://x.com', external: true },
+      { label: 'Discord', href: 'https://discord.com', external: true },
+      { label: 'YouTube', href: 'https://youtube.com', external: true },
+    ],
+  },
+];
 ---
 <footer class="site-footer" id="contact">
   <div class="wrap">
     <div class="footer-top">
-      <div class="footer-brand">
-        <a class="brand" href="/#top"><img src="/koamishin-logo.png" alt="" class="brand-logo" width="38" height="38" /><span class="brand-lock"><span class="brand-name">Koamishin</span><span class="brand-sub">Collective</span></span></a>
-        <p>A modern development collective. We build scalable systems, open-source tools, and beautiful user experiences — together, in the open.</p>
+      <div class="footer-lead">
+        <h2 class="footer-headline">Let's talk about<br />what you're building.</h2>
+        <a class="footer-email" href="mailto:rui@koamishin.com">rui@koamishin.com</a>
       </div>
-      <div class="footer-cols">
-        <div>
-          <span class="footer-col-title">Projects</span>
-          <ul>
-            <li><a href="https://opensinop.koamishin.com/" target="_blank" rel="noopener">OpenSinop (Live App) ↗</a></li>
-            <li><a href="https://github.com/koamishin/OpenSinop" target="_blank" rel="noopener">OpenSinop (GitHub)</a></li>
-            <li><a href="https://github.com/koamishin/KoamiStarterKit" target="_blank" rel="noopener">KoamiStarterKit</a></li>
-            <li><a href="https://github.com/koamishin/KoaScholarships" target="_blank" rel="noopener">KoaScholarships</a></li>
-            <li><a href="https://github.com/koamishin/koakademy" target="_blank" rel="noopener">koakademy</a></li>
-            <li><a href="https://github.com/koamishin" target="_blank" rel="noopener">All repositories</a></li>
-          </ul>
-        </div>
-        <div>
-          <span class="footer-col-title">Resources</span>
-          <ul>
-            <li><a href="/blog/">Journal</a></li>
-            <li><a href="/#projects">Documentation</a></li>
-            <li><a href="/#projects">Tutorials</a></li>
-            <li><a href="/#team">The Team</a></li>
-          </ul>
-        </div>
-        <div>
-          <span class="footer-col-title">Company</span>
-          <ul>
-            <li><a href="/#top">About</a></li>
-            <li><a href="mailto:rui@koamishin.com">rui@koamishin.com</a></li>
-            <li><a href="https://koamishin.com" target="_blank" rel="noopener">koamishin.com</a></li>
-            <li><a href="/#join">Join us</a></li>
-          </ul>
-        </div>
-      </div>
+
+      <nav class="footer-cols" aria-label="Footer">
+        {columns.map((col) => (
+          <div class="footer-col">
+            <h3 class="footer-col-title">{col.title}</h3>
+            <ul>
+              {col.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noopener' : undefined}
+                  >
+                    {link.label}{link.external && <span class="ext" aria-hidden="true">↗</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
     </div>
 
-    <div class="footer-controls">
-      <div class="lang-control" role="group" aria-label="Language">
-        <button class="on" data-lang="en">EN</button>
-        <button data-lang="ja">日本語</button>
-      </div>
-      <div class="social-row" aria-label="Social links">
-        <a class="social-btn" href="https://github.com/koamishin" target="_blank" rel="noopener" aria-label="GH — GitHub" title="GitHub"><span aria-hidden="true">GH</span></a>
-        <a class="social-btn" href="https://x.com" target="_blank" rel="noopener" aria-label="X — Twitter" title="X"><span aria-hidden="true">X</span></a>
-        <a class="social-btn" href="https://discord.com" target="_blank" rel="noopener" aria-label="DC — Discord" title="Discord"><span aria-hidden="true">DC</span></a>
-        <a class="social-btn" href="https://youtube.com" target="_blank" rel="noopener" aria-label="YT — YouTube" title="YouTube"><span aria-hidden="true">YT</span></a>
-      </div>
-    </div>
+    <div class="footer-wordmark" aria-hidden="true">Koamishin</div>
 
     <div class="footer-base">
-      <span>Koamishin Collective · Issue 01</span>
-      <span>Open Source Laravel Solutions · AGPL-3.0</span>
-      <a href="#top">Back to top ↑</a>
+      <p class="footer-copy">© {year} Koamishin Collective</p>
+      <div class="footer-meta">
+        <span class="footer-issue">Issue 01 — {year}</span>
+        <a class="footer-top-link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
-  .brand-name {
-    color: var(--cream);
+  .site-footer {
+    margin-top: clamp(4rem, 8vw, 6.5rem);
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+    border-top: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink);
+    overflow: hidden;
   }
-  .brand-sub {
-    color: rgba(251, 246, 239, 0.55);
+
+  /* ---------- Top: lead + link columns ---------- */
+  .footer-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
   }
-  .brand-sub::before {
-    color: rgba(251, 246, 239, 0.3);
+
+  .footer-headline {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 3.4vw, 2.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .footer-email {
+    display: inline-block;
+    margin-top: 1.9rem;
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: opacity 0.16s ease;
+  }
+  .footer-email:hover {
+    opacity: 0.6;
+  }
+
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .footer-col-title {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.95rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-col li {
+    margin-bottom: 0.35rem;
+  }
+  .footer-col a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.12rem 0;
+    transition: color 0.16s ease;
+  }
+  .footer-col a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .footer-col .ext {
+    font-size: 0.72em;
+    color: var(--line-strong);
+  }
+
+  /* ---------- Oversized wordmark ---------- */
+  .footer-wordmark {
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3rem, 15vw, 11rem);
+    line-height: 0.78;
+    letter-spacing: -0.045em;
+    color: rgba(60, 77, 61, 0.08);
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  /* ---------- Base bar ---------- */
+  .footer-base {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0;
+    padding: 1.15rem 0 1.6rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .footer-issue {
+    color: var(--muted);
+  }
+
+  .footer-top-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 700;
+    color: var(--ink);
+    transition: opacity 0.16s ease;
+  }
+  .footer-top-link:hover {
+    opacity: 0.6;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .footer-top {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .footer-cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.75rem 1rem;
+    }
+    .footer-base {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem 0 1.5rem;
+    }
+    .footer-meta {
+      width: 100%;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer-wordmark {
+      line-height: 0.8;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .footer-cols {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.6rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-email,
+    .footer-top-link {
+      transition: none;
+    }
   }
 </style>
